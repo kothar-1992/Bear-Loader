@@ -1,0 +1,454 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ArgumentListWrapping:AndroidHWIDProvider.kt$AndroidHWIDProvider$(context)</ID>
+    <ID>ArgumentListWrapping:AnimationUtils.kt$AnimationUtils$(view, "translationZ", view.translationZ, view.translationZ - 4f)</ID>
+    <ID>ArgumentListWrapping:DownloadHelper.kt$DownloadHelper$(Environment.DIRECTORY_DOWNLOADS, "Android/obb/$obbFileName")</ID>
+    <ID>ArgumentListWrapping:DownloadHelper.kt$DownloadHelper$(Environment.DIRECTORY_DOWNLOADS, "ota_updates/$apkFileName")</ID>
+    <ID>ArgumentListWrapping:DownloadHelper.kt$DownloadHelper$(context, "Download service unavailable on device", android.widget.Toast.LENGTH_LONG)</ID>
+    <ID>ArgumentListWrapping:DownloadHelper.kt$DownloadHelper$(context, "Failed to enqueue APK download", android.widget.Toast.LENGTH_LONG)</ID>
+    <ID>ArgumentListWrapping:DownloadHelper.kt$DownloadHelper$(context, "Failed to enqueue OBB download", android.widget.Toast.LENGTH_LONG)</ID>
+    <ID>ArgumentListWrapping:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$("EnhancedSettingsFragment", "Language changed to: ${if (enableChinese) "Chinese" else "English"}")</ID>
+    <ID>ArgumentListWrapping:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$("EnhancedSettingsFragment", "License info update - Key: ${if (licenseKey.isNullOrEmpty()) "null/empty" else "available"}, Token: ${if (sessionToken.isNullOrEmpty()) "null/empty" else "available"}, Expiry: $tokenExpiry, Authenticated: $isAuthenticated")</ID>
+    <ID>ArgumentListWrapping:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$("EnhancedSettingsFragment", "Updating expiry info - Expiry time: $expiryTime, Current time: ${System.currentTimeMillis()}")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("API endpoint mismatch (expected: keyauth.win/api/1.3)")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("Initialization failed: ${(initResult as? NetworkResult.Error)?.message}")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", " This suggests session state corruption or invalid session ID")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "⚠️ Failed to clear persisted session token: ${e.message}")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "⚠️ HWID changed: ${lastAuthHwid.take(8)}... -&gt; ${currentHwid.take(8)}...")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "⚠️ Session/HWID issue detected during license auth, attempting clear + re-init + retry")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "✅ Clean initialization successful, now validating stored session...")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "❌ Clean initialization failed during session restore")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "❌ Clean initialization failed: ${(initResult as? NetworkResult.Error)?.message}")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "❌ HWID-based authentication failed: ${authResult.message}")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "❌ Initialization failed before license auth: ${(initResult as? NetworkResult.Error)?.message}")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "❌ Invalid session detected, clearing stored session...")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "❌ Re-initialization failed: ${(retryInit as? NetworkResult.Error)?.message}")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "❌ Session not found error, clearing stored session...")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "🔁 Re-initialization successful, retrying license authentication")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "🔄 Forcing clean initialization due to session corruption...")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "🔄 Performing clean initialization for session restoration...")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("KeyAuthRepository", "🔄 authenticateWithLicenseAllowHwidUpdate: performing clean initialization...")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("Re-initialization failed: ${(retryInit as? NetworkResult.Error)?.message}")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("Session expired or invalid. Please restart the app and try again.")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$("keyauth.win/api/1.3")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$(8)</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$(Dispatchers.IO)</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepository.kt$KeyAuthRepository$(sessionCheckResult.message ?: "Session validation failed")</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(Response.success(authResp))</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(Response.success(successResp))</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;())</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;())</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), anyOrNull())</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(apiService.checkSession(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;()))</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(apiService.init(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), anyOrNull()))</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(apiService.license(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;()))</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(authResp)</ID>
+    <ID>ArgumentListWrapping:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$(successResp)</ID>
+    <ID>ArgumentListWrapping:LoginActivity.kt$LoginActivity$(android.view.animation.AnimationUtils.loadAnimation(this, R.anim.button_press_scale))</ID>
+    <ID>ArgumentListWrapping:LoginActivity.kt$LoginActivity$(android.view.animation.AnimationUtils.loadAnimation(this, R.anim.button_release_scale))</ID>
+    <ID>ArgumentListWrapping:LoginActivity.kt$LoginActivity$(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO)</ID>
+    <ID>ArgumentListWrapping:LoginActivity.kt$LoginActivity$(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES)</ID>
+    <ID>ArgumentListWrapping:LoginActivity.kt$LoginActivity$(this, R.anim.button_press_scale)</ID>
+    <ID>ArgumentListWrapping:LoginActivity.kt$LoginActivity$(this, R.anim.button_release_scale)</ID>
+    <ID>ArgumentListWrapping:LoginViewModel.kt$LoginViewModel$("LoginViewModel", "🚨 Session corruption detected, will force clean initialization on next attempt")</ID>
+    <ID>ArgumentListWrapping:OTARepository.kt$OTARepository$(Dispatchers.IO)</ID>
+    <ID>ArgumentListWrapping:PermissionManager.kt$PermissionManager$("These permissions are only used for the update process and ensure a seamless installation experience.")</ID>
+    <ID>ArgumentListWrapping:PubgVariantAdapter.kt$PubgVariantAdapter.PubgVariantViewHolder$( R.drawable.ic_download_simple, 0, 0, 0 )</ID>
+    <ID>ArgumentListWrapping:SecurePreferences.kt$SecurePreferences$(context.contentResolver, android.provider.Settings.Secure.ANDROID_ID)</ID>
+    <ID>ArgumentListWrapping:SessionDebugger.kt$SessionDebugger$(8)</ID>
+    <ID>ArgumentListWrapping:SessionDebugger.kt$SessionDebugger$(TAG, "${if (success) "✅" else "❌"} Result: ${if (success) "SUCCESS" else "FAILED"} ${if (message.isNotEmpty()) "- $message" else ""}")</ID>
+    <ID>ArgumentListWrapping:SessionDebugger.kt$SessionDebugger$(TAG, "🆔 Session ID: ${if (sessionId.isNullOrEmpty()) "❌ NONE" else "✅ Present (${sessionId.take(8)}...)"}")</ID>
+    <ID>ArgumentListWrapping:SessionDebugger.kt$SessionDebugger$(TAG, "🎫 Bound License: ${if (boundLicense.isNullOrEmpty()) "❌ NONE" else "✅ Present (${boundLicense.take(8)}...)"}")</ID>
+    <ID>ArgumentListWrapping:SessionDebugger.kt$SessionDebugger$(TAG, "📱 Session Token: ${if (sessionToken.isNullOrEmpty()) "❌ NONE" else "✅ Present (${sessionToken.take(8)}...)"}")</ID>
+    <ID>ArgumentListWrapping:SessionDebugger.kt$SessionDebugger$(TAG, "🔄 Refresh Token: ${if (refreshToken.isNullOrEmpty()) "❌ NONE" else "✅ Present (${refreshToken.take(8)}...)"}")</ID>
+    <ID>ArgumentListWrapping:SessionDebugger.kt$SessionDebugger$(TAG, "🔑 Last Auth HWID: ${if (lastAuthHWID.isNullOrEmpty()) "❌ NONE" else "✅ Present (${lastAuthHWID.take(8)}...)"}")</ID>
+    <ID>ArgumentListWrapping:SessionDebugger.kt$SessionDebugger$(TAG, "🔑 Stored HWID: ${if (storedHWID.isNullOrEmpty()) "❌ NONE" else "✅ Present (${storedHWID.take(8)}...)"}")</ID>
+    <ID>ArgumentListWrapping:ZeusPubgFragment.kt$ZeusPubgFragment$("To download PUBG variants, please:\n\n1. Enable 'Allow access to manage all files'\n2. Toggle the switch to ON\n3. Return to the app\n\nIf the toggle is disabled, try:\n• Restart your device\n• Clear app cache\n• Use alternative method")</ID>
+    <ID>BlockCommentInitialStarAlignment:PubgVariantsFragment.kt$PubgVariantsFragment$/* if (permissionManager.hasAllRequiredPermissions()) { loadPubgVariants() } else { requestPermissions() } */</ID>
+    <ID>BlockCommentInitialStarAlignment:PubgVariantsFragment.kt$PubgVariantsFragment$/* try { // Load variants from JSON manifest variants.clear() val loadedVariants = PubgManifestLoader.loadFromAssets(requireContext()) if (loadedVariants.isNotEmpty()) { variants.addAll(loadedVariants) // Update button states based on installed packages updateVariantStates() adapter.updateVariants(variants) Toast.makeText( requireContext(), "Loaded ${variants.size} PUBG variants from manifest", Toast.LENGTH_SHORT ).show() } else { // If JSON returns empty list, use fallback loadFallbackVariants() } } catch (e: Exception) { // Fallback to hardcoded variants Toast.makeText( requireContext(), "JSON loading failed: ${e.message}", Toast.LENGTH_LONG ).show() loadFallbackVariants() } */</ID>
+    <ID>BlockCommentInitialStarAlignment:ZeusPubgFragment.kt$ZeusPubgFragment$/* if (!hasStoragePermissions()) { requestStoragePermissions() } else { loadPubgVariants() } */</ID>
+    <ID>CyclomaticComplexMethod:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$fun updateLanguage()</ID>
+    <ID>CyclomaticComplexMethod:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$private fun showLanguageDialog()</ID>
+    <ID>CyclomaticComplexMethod:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$private fun updateExpiryInformation(expiryTime: Long)</ID>
+    <ID>CyclomaticComplexMethod:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$private fun updateLicenseInformation()</ID>
+    <ID>CyclomaticComplexMethod:KeyAuthRepository.kt$KeyAuthRepository$internal suspend fun attemptHWIDBasedAuth(): NetworkResult&lt;KeyAuthResponse&gt;</ID>
+    <ID>CyclomaticComplexMethod:KeyAuthRepository.kt$KeyAuthRepository$suspend fun authenticateWithLicense(licenseKey: String): NetworkResult&lt;KeyAuthResponse&gt;</ID>
+    <ID>CyclomaticComplexMethod:KeyAuthRepository.kt$KeyAuthRepository$suspend fun authenticateWithLicenseAllowHwidUpdate(licenseKey: String): NetworkResult&lt;KeyAuthResponse&gt;</ID>
+    <ID>CyclomaticComplexMethod:KeyAuthRepository.kt$KeyAuthRepository$suspend fun checkSession(): NetworkResult&lt;KeyAuthResponse&gt;</ID>
+    <ID>CyclomaticComplexMethod:KeyAuthRepository.kt$KeyAuthRepository$suspend fun initialize(preserveSession: Boolean = false): NetworkResult&lt;KeyAuthResponse&gt;</ID>
+    <ID>CyclomaticComplexMethod:KeyAuthRepository.kt$KeyAuthRepository$suspend fun restoreSession(): SessionRestoreResult</ID>
+    <ID>CyclomaticComplexMethod:LoginActivity.kt$LoginActivity$private fun setupObservers()</ID>
+    <ID>CyclomaticComplexMethod:VariantAdapter.kt$VariantAdapter.VariantViewHolder$fun bind( variant: VariantItem, isSelected: Boolean, onItemClick: (VariantItem) -&gt; Unit )</ID>
+    <ID>ForbiddenComment:MainVariantAdapter.kt$MainVariantAdapter.VariantViewHolder$// TODO: Implement actual installation check logic</ID>
+    <ID>ForbiddenComment:MainVariantAdapter.kt$MainVariantAdapter.VariantViewHolder$// TODO: Implement actual update check logic</ID>
+    <ID>ForbiddenComment:PubgVariantsFragment.kt$PubgVariantsFragment$// TODO: Re-enable permission checking after debugging</ID>
+    <ID>ForbiddenComment:ZeusPubgFragment.kt$ZeusPubgFragment$// TODO: Re-enable permission checking after testing</ID>
+    <ID>ImportOrdering:EnhancedSettingsFragment.kt$import android.animation.AnimatorSet import android.animation.ObjectAnimator import android.content.Intent import android.os.Bundle import android.os.Handler import android.os.Looper import android.util.Log import android.view.LayoutInflater import android.view.View import android.view.ViewGroup import android.view.animation.AccelerateDecelerateInterpolator import android.widget.TextView import android.widget.Toast import androidx.fragment.app.Fragment import androidx.lifecycle.ViewModelProvider import androidx.lifecycle.Observer import androidx.lifecycle.asLiveData import com.google.android.material.dialog.MaterialAlertDialogBuilder import com.bearmod.loader.R import com.bearmod.loader.data.repository.KeyAuthRepository import com.bearmod.loader.data.model.AuthenticationState import com.bearmod.loader.network.NetworkFactory import com.bearmod.loader.ui.LoginActivity import com.bearmod.loader.ui.MainActivity import com.bearmod.loader.utils.LanguageManager import com.bearmod.loader.utils.SessionManager import com.bearmod.loader.utils.SecurePreferences import com.bearmod.loader.viewmodel.AuthViewModel import java.text.SimpleDateFormat import java.util.*</ID>
+    <ID>ImportOrdering:KeyAuthRepository.kt$import android.content.Context import android.os.Build import android.provider.Settings import android.util.Log import com.bearmod.loader.config.KeyAuthConfig import com.bearmod.loader.data.api.KeyAuthApiService import com.bearmod.loader.data.model.KeyAuthResponse import com.bearmod.loader.data.model.AuthenticationState import com.bearmod.loader.data.model.SessionRestoreResult import com.bearmod.loader.data.model.HWIDValidationResult import com.bearmod.loader.data.model.AuthFlowState import com.bearmod.loader.data.model.AuthError import com.bearmod.loader.data.model.AuthErrorType import com.bearmod.loader.utils.NetworkResult import com.bearmod.loader.utils.SecurePreferences import com.bearmod.loader.security.AndroidHWIDProvider import com.bearmod.loader.security.HWIDProvider import com.bearmod.loader.utils.SessionDebugger import kotlinx.coroutines.Dispatchers import kotlinx.coroutines.withContext import kotlinx.coroutines.flow.MutableStateFlow import kotlinx.coroutines.flow.StateFlow import kotlinx.coroutines.flow.asStateFlow import retrofit2.Response import java.security.MessageDigest</ID>
+    <ID>ImportOrdering:KeyAuthRepositoryHWIDTest.kt$import androidx.test.core.app.ApplicationProvider import org.junit.runner.RunWith import org.robolectric.RobolectricTestRunner import com.bearmod.loader.data.api.KeyAuthApiService import com.bearmod.loader.data.model.KeyAuthResponse import com.bearmod.loader.security.HWIDProvider import com.bearmod.loader.utils.SecurePreferences import com.bearmod.loader.utils.NetworkResult import kotlinx.coroutines.runBlocking import org.junit.Assert.* import org.junit.Before import org.junit.Test import org.mockito.kotlin.any import org.mockito.kotlin.doReturn import org.mockito.kotlin.mock import org.mockito.kotlin.whenever import org.mockito.kotlin.anyOrNull import retrofit2.Response</ID>
+    <ID>ImportOrdering:KeyAuthRepositoryTest.kt$import android.content.Context import com.bearmod.loader.data.api.KeyAuthApiService import com.bearmod.loader.data.model.KeyAuthResponse import com.bearmod.loader.data.repository.KeyAuthRepository import com.bearmod.loader.utils.NetworkResult import kotlinx.coroutines.runBlocking import org.junit.Before import org.junit.Test import org.mockito.Mock import org.mockito.MockitoAnnotations import org.mockito.Mockito.`when` import org.junit.Assert.* import retrofit2.Response</ID>
+    <ID>ImportOrdering:LoginActivity.kt$import android.content.ClipboardManager import android.content.Context import android.content.Intent import android.os.Bundle import android.util.Log import android.view.View import android.widget.Toast import androidx.activity.viewModels import androidx.appcompat.app.AppCompatActivity import androidx.core.content.ContextCompat import androidx.lifecycle.ViewModel import androidx.lifecycle.ViewModelProvider import com.google.android.material.snackbar.Snackbar import com.bearmod.loader.R import com.bearmod.loader.databinding.ActivityLoginBinding import com.bearmod.loader.network.NetworkFactory import com.bearmod.loader.ui.login.LoginViewModel import com.bearmod.loader.data.model.SessionRestoreResult import com.bearmod.loader.data.model.AuthFlowState import com.bearmod.loader.utils.NetworkResult import com.bearmod.loader.utils.SecurePreferences import com.bearmod.loader.utils.PreferencesMigration import androidx.lifecycle.lifecycleScope import kotlinx.coroutines.launch</ID>
+    <ID>ImportOrdering:LoginViewModel.kt$import android.util.Log import androidx.lifecycle.LiveData import androidx.lifecycle.MutableLiveData import androidx.lifecycle.ViewModel import androidx.lifecycle.viewModelScope import com.bearmod.loader.KeyAuthLoaderApplication import com.bearmod.loader.data.model.KeyAuthResponse import com.bearmod.loader.data.model.SessionRestoreResult import com.bearmod.loader.data.model.AuthFlowState import com.bearmod.loader.data.repository.KeyAuthRepository import com.bearmod.loader.utils.NetworkResult import kotlinx.coroutines.launch import kotlinx.coroutines.flow.StateFlow</ID>
+    <ID>ImportOrdering:MainActivity.kt$import android.os.Bundle import androidx.activity.viewModels import androidx.appcompat.app.AppCompatActivity import androidx.fragment.app.Fragment import com.google.android.material.bottomnavigation.BottomNavigationView import com.bearmod.loader.R import com.bearmod.loader.databinding.ActivityMainBinding import com.bearmod.loader.ui.fragment.PubgVariantsFragment import com.bearmod.loader.ui.fragment.ZeusPubgFragment import com.bearmod.loader.ui.fragments.EnhancedSettingsFragment import com.bearmod.loader.ui.fragments.UpdateFragment import com.bearmod.loader.utils.LanguageManager import com.bearmod.loader.viewmodel.AuthViewModel</ID>
+    <ID>ImportOrdering:OTAInterop.kt$import android.content.Context import kotlinx.coroutines.CoroutineScope import kotlinx.coroutines.Dispatchers import kotlinx.coroutines.launch import kotlinx.coroutines.withContext import com.bearmod.loader.network.NetworkFactory</ID>
+    <ID>ImportOrdering:PubgVariantsFragment.kt$import android.content.Intent import android.os.Bundle import android.view.LayoutInflater import android.view.MotionEvent import android.view.View import android.view.ViewGroup import android.view.animation.AnimationUtils import android.widget.Button import android.widget.Toast import androidx.fragment.app.Fragment import androidx.recyclerview.widget.LinearLayoutManager import androidx.recyclerview.widget.RecyclerView import com.bearmod.loader.R import com.bearmod.loader.data.model.PubgButtonState import com.bearmod.loader.data.model.PubgVariant import com.bearmod.loader.data.model.PubgManifestLoader import com.bearmod.loader.ui.adapter.PubgVariantAdapter import com.bearmod.loader.utils.PackageVersionChecker import com.bearmod.loader.utils.PermissionManager</ID>
+    <ID>ImportOrdering:SecurePreferences.kt$import android.content.Context import android.content.SharedPreferences import android.os.Build import android.util.Base64 import android.util.Log import com.bearmod.loader.security.AndroidKeystoreProvider import com.bearmod.loader.security.KeystoreProvider import com.bearmod.loader.security.HWIDProvider /** * Secure preferences utility for storing sensitive data using Android Keystore directly * Updated to replace deprecated AndroidX Security Crypto APIs with direct Keystore usage */ import kotlin.jvm.JvmOverloads</ID>
+    <ID>ImportOrdering:SessionServiceTest.kt$import com.bearmod.loader.session.SessionStore import org.junit.Assert.* import org.junit.Before import org.junit.Test import org.mockito.kotlin.mock import org.mockito.kotlin.verify import org.mockito.kotlin.whenever import com.bearmod.loader.logging.Logger</ID>
+    <ID>Indentation:APKInstaller.kt$APKInstaller$ </ID>
+    <ID>Indentation:AndroidHWIDProviderTest.kt$AndroidHWIDProviderTest$ </ID>
+    <ID>Indentation:KeyAuthRepository.kt$KeyAuthRepository$ </ID>
+    <ID>Indentation:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$ </ID>
+    <ID>Indentation:LoginActivity.kt$LoginActivity$ </ID>
+    <ID>Indentation:OTARepository.kt$OTARepository$ </ID>
+    <ID>Indentation:PubgVariantsFragment.kt$PubgVariantsFragment$ </ID>
+    <ID>Indentation:SessionServiceTest.kt$SessionServiceTest$ </ID>
+    <ID>LargeClass:KeyAuthRepository.kt$KeyAuthRepository</ID>
+    <ID>LongMethod:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$private fun updateExpiryInformation(expiryTime: Long)</ID>
+    <ID>LongMethod:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$private fun updateLicenseInformation()</ID>
+    <ID>LongMethod:KeyAuthRepository.kt$KeyAuthRepository$suspend fun initialize(preserveSession: Boolean = false): NetworkResult&lt;KeyAuthResponse&gt;</ID>
+    <ID>LongMethod:KeyAuthRepository.kt$KeyAuthRepository$suspend fun restoreSession(): SessionRestoreResult</ID>
+    <ID>LongMethod:LoginActivity.kt$LoginActivity$private fun setupObservers()</ID>
+    <ID>LongMethod:MainVariantAdapter.kt$MainVariantAdapter.VariantViewHolder$fun bind(variant: VariantItem)</ID>
+    <ID>LongParameterList:KeyAuthApiService.kt$KeyAuthApiService$( @Field("type") type: String = "license", @Field("key") licenseKey: String, @Field("hwid") hwid: String, @Field("sessionid") sessionId: String, @Field("name") name: String, @Field("ownerid") ownerId: String )</ID>
+    <ID>LongParameterList:KeyAuthApiService.kt$KeyAuthApiService$( @Field("type") type: String = "log", @Field("pcuser") pcUser: String, @Field("message") message: String, @Field("sessionid") sessionId: String, @Field("name") name: String, @Field("ownerid") ownerId: String )</ID>
+    <ID>LoopWithTooManyJumpStatements:PreferencesMigration.kt$PreferencesMigration$for</ID>
+    <ID>MagicNumber:APKInstaller.kt$APKInstaller$1024.0</ID>
+    <ID>MagicNumber:AndroidHWIDProvider.kt$AndroidHWIDProvider$0xFF</ID>
+    <ID>MagicNumber:AndroidHWIDProvider.kt$AndroidHWIDProvider$4</ID>
+    <ID>MagicNumber:AndroidKeystoreProvider.kt$AndroidKeystoreProvider$12</ID>
+    <ID>MagicNumber:AndroidKeystoreProvider.kt$AndroidKeystoreProvider$8</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$0.8f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$0.95f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$1.1f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$100</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$15f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$25f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$360f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$400</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$4f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$50f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$600</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils$6f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils.&lt;no name provided&gt;$0.95f</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils.&lt;no name provided&gt;$150</ID>
+    <ID>MagicNumber:AnimationUtils.kt$AnimationUtils.&lt;no name provided&gt;$4f</ID>
+    <ID>MagicNumber:AuthenticationModels.kt$EnhancedKeyAuthResponse$1000</ID>
+    <ID>MagicNumber:AuthenticationModels.kt$SessionPersistenceConfig$1000L</ID>
+    <ID>MagicNumber:AuthenticationModels.kt$SessionPersistenceConfig$24</ID>
+    <ID>MagicNumber:AuthenticationModels.kt$SessionPersistenceConfig$60</ID>
+    <ID>MagicNumber:AuthenticationModels.kt$SessionPersistenceConfig$7</ID>
+    <ID>MagicNumber:DownloadActivity.kt$DownloadActivity$100</ID>
+    <ID>MagicNumber:DownloadActivity.kt$DownloadActivity$128</ID>
+    <ID>MagicNumber:DownloadActivity.kt$DownloadActivity$255</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$0.95f</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$100</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$1000</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$24</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$300</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$4</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$50f</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$60</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$8</ID>
+    <ID>MagicNumber:EnhancedSettingsFragment.kt$EnhancedSettingsFragment.&lt;no name provided&gt;$60000</ID>
+    <ID>MagicNumber:KeyAuthRepository.kt$KeyAuthRepository$1000</ID>
+    <ID>MagicNumber:KeyAuthRepository.kt$KeyAuthRepository$1000L</ID>
+    <ID>MagicNumber:KeyAuthRepository.kt$KeyAuthRepository$24</ID>
+    <ID>MagicNumber:KeyAuthRepository.kt$KeyAuthRepository$3</ID>
+    <ID>MagicNumber:KeyAuthRepository.kt$KeyAuthRepository$48</ID>
+    <ID>MagicNumber:KeyAuthRepository.kt$KeyAuthRepository$60</ID>
+    <ID>MagicNumber:KeyAuthRepository.kt$KeyAuthRepository$8</ID>
+    <ID>MagicNumber:LoginActivity.kt$LoginActivity$220</ID>
+    <ID>MagicNumber:LoginActivity.kt$LoginActivity$8f</ID>
+    <ID>MagicNumber:LoginViewModel.kt$LoginViewModel$10</ID>
+    <ID>MagicNumber:MainVariantAdapter.kt$MainVariantAdapter.VariantViewHolder$100</ID>
+    <ID>MagicNumber:MainVariantAdapter.kt$MainVariantAdapter.VariantViewHolder$1024</ID>
+    <ID>MagicNumber:NetworkFactory.kt$NetworkFactory$30</ID>
+    <ID>MagicNumber:NetworkFactory.kt$NetworkFactory$300</ID>
+    <ID>MagicNumber:NetworkFactory.kt$NetworkFactory$60</ID>
+    <ID>MagicNumber:OTAModels.kt$DownloadProgress$100</ID>
+    <ID>MagicNumber:OTARepository.kt$OTARepository$8192</ID>
+    <ID>MagicNumber:PubgDownloadActivity.kt$PubgDownloadActivity$1001</ID>
+    <ID>MagicNumber:PubgVariantsFragment.kt$PubgVariantsFragment.&lt;no name provided&gt;$10</ID>
+    <ID>MagicNumber:PubgVariantsFragment.kt$PubgVariantsFragment.&lt;no name provided&gt;$100</ID>
+    <ID>MagicNumber:PubgVariantsFragment.kt$PubgVariantsFragment.&lt;no name provided&gt;$500</ID>
+    <ID>MagicNumber:PubgVariantsFragment.kt$PubgVariantsFragment.&lt;no name provided&gt;$8</ID>
+    <ID>MagicNumber:SecurePreferences.kt$SecurePreferences$8</ID>
+    <ID>MagicNumber:SessionDebugger.kt$SessionDebugger$8</ID>
+    <ID>MagicNumber:VariantAdapter.kt$VariantAdapter.VariantViewHolder$0.5f</ID>
+    <ID>MagicNumber:VariantAdapter.kt$VariantAdapter.VariantViewHolder$1024.0</ID>
+    <ID>MagicNumber:ZeusPubgFragment.kt$ZeusPubgFragment$1001</ID>
+    <ID>MaxLineLength:AndroidHWIDProvider.kt$AndroidHWIDProvider$class</ID>
+    <ID>MaxLineLength:AnimationUtils.kt$AnimationUtils$val</ID>
+    <ID>MaxLineLength:DownloadHelper.kt$DownloadHelper$.</ID>
+    <ID>MaxLineLength:DownloadHelper.kt$DownloadHelper$android.widget.Toast.makeText(context, "Download service unavailable on device", android.widget.Toast.LENGTH_LONG).show()</ID>
+    <ID>MaxLineLength:DownloadHelper.kt$DownloadHelper$android.widget.Toast.makeText(context, "Failed to enqueue APK download", android.widget.Toast.LENGTH_LONG).show()</ID>
+    <ID>MaxLineLength:DownloadHelper.kt$DownloadHelper$android.widget.Toast.makeText(context, "Failed to enqueue OBB download", android.widget.Toast.LENGTH_LONG).show()</ID>
+    <ID>MaxLineLength:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$Log.d("EnhancedSettingsFragment", "Language changed to: ${if (enableChinese) "Chinese" else "English"}")</ID>
+    <ID>MaxLineLength:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$Log.d("EnhancedSettingsFragment", "License info update - Key: ${if (licenseKey.isNullOrEmpty()) "null/empty" else "available"}, Token: ${if (sessionToken.isNullOrEmpty()) "null/empty" else "available"}, Expiry: $tokenExpiry, Authenticated: $isAuthenticated")</ID>
+    <ID>MaxLineLength:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$Log.d("EnhancedSettingsFragment", "Updating expiry info - Expiry time: $expiryTime, Current time: ${System.currentTimeMillis()}")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$Log.e("KeyAuthRepository", " This suggests session state corruption or invalid session ID")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (!apiBaseUrl.contains("keyauth.win/api/1.3")) issues.add("API endpoint mismatch (expected: keyauth.win/api/1.3)")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.d("KeyAuthRepository", "✅ Clean initialization successful, now validating stored session...")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.d("KeyAuthRepository", "🔁 Re-initialization successful, retrying license authentication")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.d("KeyAuthRepository", "🔄 Forcing clean initialization due to session corruption...")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.d("KeyAuthRepository", "🔄 Performing clean initialization for session restoration...")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.d("KeyAuthRepository", "🔄 authenticateWithLicenseAllowHwidUpdate: performing clean initialization...")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.e("KeyAuthRepository", "❌ Clean initialization failed during session restore")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.e("KeyAuthRepository", "❌ Clean initialization failed: ${(initResult as? NetworkResult.Error)?.message}")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.e("KeyAuthRepository", "❌ HWID-based authentication failed: ${authResult.message}")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.e("KeyAuthRepository", "❌ Initialization failed before license auth: ${(initResult as? NetworkResult.Error)?.message}")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.e("KeyAuthRepository", "❌ Re-initialization failed: ${(retryInit as? NetworkResult.Error)?.message}")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.w("KeyAuthRepository", "⚠️ Failed to clear persisted session token: ${e.message}")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.w("KeyAuthRepository", "⚠️ HWID changed: ${lastAuthHwid.take(8)}... -&gt; ${currentHwid.take(8)}...")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.w("KeyAuthRepository", "⚠️ Session/HWID issue detected during license auth, attempting clear + re-init + retry")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.w("KeyAuthRepository", "❌ Invalid session detected, clearing stored session...")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$if (enableLogging) Log.w("KeyAuthRepository", "❌ Session not found error, clearing stored session...")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$return@withContext NetworkResult.Error("Initialization failed: ${(initResult as? NetworkResult.Error)?.message}")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$return@withContext NetworkResult.Error("Re-initialization failed: ${(retryInit as? NetworkResult.Error)?.message}")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$return@withContext NetworkResult.Error("Session expired or invalid. Please restart the app and try again.")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$return@withContext SessionRestoreResult.Failed(sessionCheckResult.message ?: "Session validation failed")</ID>
+    <ID>MaxLineLength:KeyAuthRepository.kt$KeyAuthRepository$suspend</ID>
+    <ID>MaxLineLength:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$whenever(apiService.checkSession(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;())).doReturn(Response.success(successResp))</ID>
+    <ID>MaxLineLength:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$whenever(apiService.init(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), anyOrNull())).doReturn(Response.success(authResp))</ID>
+    <ID>MaxLineLength:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$whenever(apiService.init(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), anyOrNull())).doReturn(Response.success(successResp))</ID>
+    <ID>MaxLineLength:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$whenever(apiService.license(any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;(), any&lt;String&gt;())).doReturn(Response.success(authResp))</ID>
+    <ID>MaxLineLength:KeystoreProvider.kt$KeystoreProvider$/** Decrypt combined IV + ciphertext using the key identified by [alias]. Returns plaintext bytes or null on error. */</ID>
+    <ID>MaxLineLength:LoginActivity.kt$LoginActivity$androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO)</ID>
+    <ID>MaxLineLength:LoginActivity.kt$LoginActivity$androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES)</ID>
+    <ID>MaxLineLength:LoginActivity.kt$LoginActivity$v.startAnimation(android.view.animation.AnimationUtils.loadAnimation(this, R.anim.button_press_scale))</ID>
+    <ID>MaxLineLength:LoginActivity.kt$LoginActivity$v.startAnimation(android.view.animation.AnimationUtils.loadAnimation(this, R.anim.button_release_scale))</ID>
+    <ID>MaxLineLength:LoginViewModel.kt$LoginViewModel$Log.w("LoginViewModel", "🚨 Session corruption detected, will force clean initialization on next attempt")</ID>
+    <ID>MaxLineLength:OTARepository.kt$OTARepository$(otaResponse.version == KeyAuthConfig.CURRENT_VERSION &amp;&amp; otaResponse.build &gt; KeyAuthConfig.CURRENT_BUILD)</ID>
+    <ID>MaxLineLength:OTARepository.kt$OTARepository$fun</ID>
+    <ID>MaxLineLength:OTARepository.kt$OTARepository$onProgress(DownloadProgress(fileType, totalBytesRead, contentLength, progress, DownloadStatus.DOWNLOADING))</ID>
+    <ID>MaxLineLength:OTARepository.kt$OTARepository$suspend</ID>
+    <ID>MaxLineLength:PermissionManager.kt$PermissionManager$appendLine("These permissions are only used for the update process and ensure a seamless installation experience.")</ID>
+    <ID>MaxLineLength:SecurePreferences.kt$SecurePreferences$android.provider.Settings.Secure.getString(context.contentResolver, android.provider.Settings.Secure.ANDROID_ID)</ID>
+    <ID>MaxLineLength:SessionDebugger.kt$SessionDebugger$Log.d(TAG, "${if (success) "✅" else "❌"} Result: ${if (success) "SUCCESS" else "FAILED"} ${if (message.isNotEmpty()) "- $message" else ""}")</ID>
+    <ID>MaxLineLength:SessionDebugger.kt$SessionDebugger$Log.d(TAG, "🆔 Session ID: ${if (sessionId.isNullOrEmpty()) "❌ NONE" else "✅ Present (${sessionId.take(8)}...)"}")</ID>
+    <ID>MaxLineLength:SessionDebugger.kt$SessionDebugger$Log.d(TAG, "🎫 Bound License: ${if (boundLicense.isNullOrEmpty()) "❌ NONE" else "✅ Present (${boundLicense.take(8)}...)"}")</ID>
+    <ID>MaxLineLength:SessionDebugger.kt$SessionDebugger$Log.d(TAG, "📱 Session Token: ${if (sessionToken.isNullOrEmpty()) "❌ NONE" else "✅ Present (${sessionToken.take(8)}...)"}")</ID>
+    <ID>MaxLineLength:SessionDebugger.kt$SessionDebugger$Log.d(TAG, "🔄 Refresh Token: ${if (refreshToken.isNullOrEmpty()) "❌ NONE" else "✅ Present (${refreshToken.take(8)}...)"}")</ID>
+    <ID>MaxLineLength:SessionDebugger.kt$SessionDebugger$Log.d(TAG, "🔑 Last Auth HWID: ${if (lastAuthHWID.isNullOrEmpty()) "❌ NONE" else "✅ Present (${lastAuthHWID.take(8)}...)"}")</ID>
+    <ID>MaxLineLength:SessionDebugger.kt$SessionDebugger$Log.d(TAG, "🔑 Stored HWID: ${if (storedHWID.isNullOrEmpty()) "❌ NONE" else "✅ Present (${storedHWID.take(8)}...)"}")</ID>
+    <ID>MaxLineLength:UpdateAvailableActivity.kt$UpdateAvailableActivity$tvDescription.text = "A new version of Bear-Loader is available for download. This update includes new features, improvements, and bug fixes."</ID>
+    <ID>MaxLineLength:ZeusPubgFragment.kt$ZeusPubgFragment$"Cannot open settings. Please manually enable storage permission in Settings &gt; Apps &gt; BEAR-MOD &gt; Permissions"</ID>
+    <ID>MaxLineLength:ZeusPubgFragment.kt$ZeusPubgFragment$.</ID>
+    <ID>MaximumLineLength:AndroidHWIDProvider.kt$AndroidHWIDProvider$class</ID>
+    <ID>MaximumLineLength:AnimationUtils.kt$AnimationUtils$ </ID>
+    <ID>MaximumLineLength:DownloadHelper.kt$DownloadHelper$ </ID>
+    <ID>MaximumLineLength:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$ </ID>
+    <ID>MaximumLineLength:KeyAuthRepository.kt$KeyAuthRepository$ </ID>
+    <ID>MaximumLineLength:KeyAuthRepositoryHWIDTest.kt$KeyAuthRepositoryHWIDTest$ </ID>
+    <ID>MaximumLineLength:LoginActivity.kt$LoginActivity$ </ID>
+    <ID>MaximumLineLength:LoginViewModel.kt$LoginViewModel$ </ID>
+    <ID>MaximumLineLength:OTARepository.kt$OTARepository$ </ID>
+    <ID>MaximumLineLength:PermissionManager.kt$PermissionManager$ </ID>
+    <ID>MaximumLineLength:SecurePreferences.kt$SecurePreferences$ </ID>
+    <ID>MaximumLineLength:SessionDebugger.kt$SessionDebugger$ </ID>
+    <ID>MaximumLineLength:UpdateAvailableActivity.kt$UpdateAvailableActivity$ </ID>
+    <ID>MaximumLineLength:ZeusPubgFragment.kt$ZeusPubgFragment$ </ID>
+    <ID>ModifierListSpacing:KeyAuthResponse.kt$AppInfo$@SerializedName("numOnlineUsers")</ID>
+    <ID>NestedBlockDepth:DownloadHelper.kt$DownloadHelper$fun enqueueDownloads( context: Context, apkUrl: String?, obbUrl: String?, apkFileName: String, obbFileName: String ): EnqueueResult</ID>
+    <ID>NestedBlockDepth:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$private fun updateExpiryInformation(expiryTime: Long)</ID>
+    <ID>NestedBlockDepth:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$private fun updateLicenseInformation()</ID>
+    <ID>NestedBlockDepth:PermissionManager.kt$PermissionManager$fun handleActivityResult( requestCode: Int, resultCode: Int, onAllGranted: () -&gt; Unit, onDenied: () -&gt; Unit )</ID>
+    <ID>NestedBlockDepth:PermissionManager.kt$PermissionManager$fun handlePermissionResult( requestCode: Int, permissions: Array&lt;out String&gt;, grantResults: IntArray, onAllGranted: () -&gt; Unit, onDenied: (List&lt;String&gt;) -&gt; Unit )</ID>
+    <ID>NestedBlockDepth:PreferencesMigration.kt$PreferencesMigration$private fun tryGetOldPreferences(context: Context): Map&lt;String, Any&gt;</ID>
+    <ID>NestedBlockDepth:SecurePreferences.kt$SecurePreferences$private fun createSecureSharedPreferences(): SharedPreferences</ID>
+    <ID>NoBlankLineBeforeRbrace:DownloadActivity.kt$DownloadActivity$ </ID>
+    <ID>NoBlankLineBeforeRbrace:DownloadHelper.kt$DownloadHelper$ </ID>
+    <ID>NoBlankLineBeforeRbrace:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$ </ID>
+    <ID>NoBlankLineBeforeRbrace:KeyAuthRepository.kt$KeyAuthRepository$ </ID>
+    <ID>NoBlankLineBeforeRbrace:LoginActivity.kt$LoginActivity$ </ID>
+    <ID>NoBlankLineBeforeRbrace:OTARepository.kt$OTARepository$ </ID>
+    <ID>NoBlankLineBeforeRbrace:OTAViewModel.kt$OTAViewModel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:PreferencesMigration.kt$PreferencesMigration$ </ID>
+    <ID>NoBlankLineBeforeRbrace:PubgDownloadActivity.kt$PubgDownloadActivity$ </ID>
+    <ID>NoBlankLineBeforeRbrace:PubgDownloadActivity.kt$PubgViewHolder$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SessionDebugger.kt$SessionDebugger$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SessionService.kt$SessionService$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SessionServiceTest.kt$SessionServiceTest$ </ID>
+    <ID>NoBlankLineBeforeRbrace:UpdateAvailableActivity.kt$UpdateAvailableActivity$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZeusPubgFragment.kt$ZeusPubgFragment$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZeusPubgFragment.kt$ZeusPubgViewHolder$ </ID>
+    <ID>NoConsecutiveBlankLines:DownloadActivity.kt$DownloadActivity$ </ID>
+    <ID>NoConsecutiveBlankLines:LoginActivity.kt$LoginActivity$ </ID>
+    <ID>NoConsecutiveBlankLines:UpdateAvailableActivity.kt$UpdateAvailableActivity$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:OTAViewModel.kt$OTAViewModel$ </ID>
+    <ID>NoMultipleSpaces:KeyAuthRepository.kt$KeyAuthRepository$ </ID>
+    <ID>NoMultipleSpaces:MainVariantAdapter.kt$MainVariantAdapter.VariantViewHolder$ </ID>
+    <ID>NoMultipleSpaces:PackageVersionChecker.kt$PackageVersionChecker$ </ID>
+    <ID>NoMultipleSpaces:PreferencesMigration.kt$PreferencesMigration$ </ID>
+    <ID>NoMultipleSpaces:PubgVariant.kt$PubgButtonState.DOWNLOAD$ </ID>
+    <ID>NoMultipleSpaces:PubgVariant.kt$PubgButtonState.INSTALLING$ </ID>
+    <ID>NoMultipleSpaces:PubgVariant.kt$PubgButtonState.OPEN$ </ID>
+    <ID>NoMultipleSpaces:PubgVariant.kt$PubgButtonState.UPDATE$ </ID>
+    <ID>NoTrailingSpaces:APKInstaller.kt$APKInstaller$ </ID>
+    <ID>NoTrailingSpaces:AnimationUtils.kt$AnimationUtils$ </ID>
+    <ID>NoTrailingSpaces:AuthenticationModels.kt$EnhancedKeyAuthResponse$ </ID>
+    <ID>NoTrailingSpaces:DownloadActivity.kt$DownloadActivity$ </ID>
+    <ID>NoTrailingSpaces:DownloadHelper.kt$DownloadHelper$ </ID>
+    <ID>NoTrailingSpaces:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$ </ID>
+    <ID>NoTrailingSpaces:KeyAuthApiService.kt$KeyAuthApiService$ </ID>
+    <ID>NoTrailingSpaces:KeyAuthConfig.kt$KeyAuthConfig$ </ID>
+    <ID>NoTrailingSpaces:KeyAuthRepository.kt$KeyAuthRepository$ </ID>
+    <ID>NoTrailingSpaces:KeyAuthResponse.kt$AppInfo$ </ID>
+    <ID>NoTrailingSpaces:KeyAuthResponse.kt$KeyAuthResponse$ </ID>
+    <ID>NoTrailingSpaces:KeyAuthResponse.kt$Subscription$ </ID>
+    <ID>NoTrailingSpaces:KeyAuthResponse.kt$UserInfo$ </ID>
+    <ID>NoTrailingSpaces:LoginActivity.kt$LoginActivity$ </ID>
+    <ID>NoTrailingSpaces:LoginViewModel.kt$LoginViewModel$ </ID>
+    <ID>NoTrailingSpaces:NetworkFactory.kt$NetworkFactory$ </ID>
+    <ID>NoTrailingSpaces:OTAApiService.kt$OTAApiService$ </ID>
+    <ID>NoTrailingSpaces:OTAModels.kt$FileInfo$ </ID>
+    <ID>NoTrailingSpaces:OTAModels.kt$OTAResponse$ </ID>
+    <ID>NoTrailingSpaces:OTAModels.kt$VariantInfo$ </ID>
+    <ID>NoTrailingSpaces:OTARepository.kt$OTARepository$ </ID>
+    <ID>NoTrailingSpaces:OTAViewModel.kt$OTAViewModel$ </ID>
+    <ID>NoTrailingSpaces:PackageVersionChecker.kt$PackageVersionChecker$ </ID>
+    <ID>NoTrailingSpaces:PermissionManager.kt$PermissionManager$ </ID>
+    <ID>NoTrailingSpaces:PreferencesMigration.kt$PreferencesMigration$ </ID>
+    <ID>NoTrailingSpaces:PubgDownloadActivity.kt$PubgDownloadActivity$ </ID>
+    <ID>NoTrailingSpaces:PubgManifest.kt$PubgManifestLoader$ </ID>
+    <ID>NoTrailingSpaces:PubgVariantsFragment.kt$PubgVariantsFragment$ </ID>
+    <ID>NoTrailingSpaces:PubgVariantsFragment.kt$PubgVariantsFragment.&lt;no name provided&gt;$ </ID>
+    <ID>NoTrailingSpaces:SecurePreferences.kt$SecurePreferences$ </ID>
+    <ID>NoTrailingSpaces:SecurePreferencesTest.kt$SecurePreferencesTest$ </ID>
+    <ID>NoTrailingSpaces:SessionDebugger.kt$SessionDebugger$ </ID>
+    <ID>NoTrailingSpaces:UpdateAvailableActivity.kt$UpdateAvailableActivity$ </ID>
+    <ID>NoTrailingSpaces:VariantAdapter.kt$VariantAdapter$ </ID>
+    <ID>NoTrailingSpaces:VariantAdapter.kt$VariantAdapter.VariantDiffCallback$ </ID>
+    <ID>NoTrailingSpaces:VariantAdapter.kt$VariantAdapter.VariantViewHolder$ </ID>
+    <ID>NoTrailingSpaces:VariantSelectionActivity.kt$VariantSelectionActivity$ </ID>
+    <ID>NoTrailingSpaces:ZeusPubgFragment.kt$ZeusPubgFragment$ </ID>
+    <ID>NoUnusedImports:APKInstaller.kt$com.bearmod.loader.utils.APKInstaller.kt</ID>
+    <ID>NoUnusedImports:AndroidKeystoreProvider.kt$com.bearmod.loader.security.AndroidKeystoreProvider.kt</ID>
+    <ID>NoUnusedImports:DownloadActivity.kt$com.bearmod.loader.ui.ota.DownloadActivity.kt</ID>
+    <ID>NoUnusedImports:KeyAuthRepository.kt$com.bearmod.loader.data.repository.KeyAuthRepository.kt</ID>
+    <ID>NoUnusedImports:KeyAuthRepositoryTest.kt$com.bearmod.loader.KeyAuthRepositoryTest.kt</ID>
+    <ID>NoUnusedImports:MainActivity.kt$com.bearmod.loader.ui.MainActivity.kt</ID>
+    <ID>NoUnusedImports:OTARepository.kt$com.bearmod.loader.data.repository.OTARepository.kt</ID>
+    <ID>NoUnusedImports:OTAViewModel.kt$com.bearmod.loader.ui.ota.OTAViewModel.kt</ID>
+    <ID>NoUnusedImports:PackageVersionChecker.kt$com.bearmod.loader.utils.PackageVersionChecker.kt</ID>
+    <ID>NoUnusedImports:PreferencesMigration.kt$com.bearmod.loader.utils.PreferencesMigration.kt</ID>
+    <ID>NoUnusedImports:PubgDownloadActivity.kt$com.bearmod.loader.ui.activity.PubgDownloadActivity.kt</ID>
+    <ID>NoUnusedImports:PubgVariantsFragment.kt$com.bearmod.loader.ui.fragment.PubgVariantsFragment.kt</ID>
+    <ID>NoUnusedImports:SessionDebugger.kt$com.bearmod.loader.utils.SessionDebugger.kt</ID>
+    <ID>NoUnusedImports:SessionServiceTest.kt$com.bearmod.loader.session.SessionServiceTest.kt</ID>
+    <ID>NoUnusedImports:UpdateAvailableActivity.kt$com.bearmod.loader.ui.ota.UpdateAvailableActivity.kt</ID>
+    <ID>NoUnusedImports:ZeusPubgFragment.kt$com.bearmod.loader.ui.fragment.ZeusPubgFragment.kt</ID>
+    <ID>NoWildcardImports:AndroidHWIDProviderTest.kt$import org.junit.Assert.*</ID>
+    <ID>NoWildcardImports:KeyAuthRepositoryHWIDTest.kt$import org.junit.Assert.*</ID>
+    <ID>NoWildcardImports:KeyAuthRepositoryTest.kt$import org.junit.Assert.*</ID>
+    <ID>NoWildcardImports:OTARepository.kt$import com.bearmod.loader.data.model.*</ID>
+    <ID>NoWildcardImports:OTAViewModel.kt$import com.bearmod.loader.data.model.*</ID>
+    <ID>NoWildcardImports:OTAViewModel.kt$import kotlinx.coroutines.flow.*</ID>
+    <ID>NoWildcardImports:SecurePreferencesTest.kt$import org.junit.Assert.*</ID>
+    <ID>NoWildcardImports:SessionServiceTest.kt$import org.junit.Assert.*</ID>
+    <ID>ParameterListWrapping:AndroidHWIDProvider.kt$AndroidHWIDProvider$(private val context: Context, private val securePreferences: SecurePreferences = SecurePreferences(context))</ID>
+    <ID>ParameterListWrapping:KeyAuthRepository.kt$KeyAuthRepository$(licenseKey: String)</ID>
+    <ID>ParameterListWrapping:KeyAuthRepository.kt$KeyAuthRepository$(preserveSession: Boolean = false)</ID>
+    <ID>ParameterListWrapping:OTARepository.kt$OTARepository$(obbFile: File, variant: String, variantInfo: VariantInfo)</ID>
+    <ID>ParameterListWrapping:OTARepository.kt$OTARepository$(variant: String, variantInfo: VariantInfo)</ID>
+    <ID>ReturnCount:AndroidKeystoreProvider.kt$AndroidKeystoreProvider$override fun decrypt(alias: String, combined: ByteArray): ByteArray?</ID>
+    <ID>ReturnCount:AndroidKeystoreProvider.kt$AndroidKeystoreProvider$override fun encrypt(alias: String, plaintext: ByteArray): ByteArray?</ID>
+    <ID>ReturnCount:DownloadHelper.kt$DownloadHelper$fun enqueueDownloads( context: Context, apkUrl: String?, obbUrl: String?, apkFileName: String, obbFileName: String ): EnqueueResult</ID>
+    <ID>ReturnCount:OTAViewModel.kt$OTAViewModel$fun installDownloadedFiles()</ID>
+    <ID>ReturnCount:PackageVersionChecker.kt$PackageVersionChecker$fun compareVersions(version1: String, version2: String): Int</ID>
+    <ID>ReturnCount:SecurePreferences.kt$SecurePreferences$fun getOrCreateHWID(): String</ID>
+    <ID>SpacingBetweenDeclarationsWithAnnotations:KeyAuthRepository.kt$KeyAuthRepository$@Volatile private var isInitialized = false</ID>
+    <ID>SpacingBetweenDeclarationsWithComments:PubgVariantsFragment.kt$PubgVariantsFragment$// Buttons moved to Settings fragment</ID>
+    <ID>SwallowedException:APKInstaller.kt$APKInstaller$e: Exception</ID>
+    <ID>SwallowedException:AndroidHWIDProvider.kt$AndroidHWIDProvider$t: Throwable</ID>
+    <ID>SwallowedException:KeyAuthRepository.kt$KeyAuthRepository$e: Exception</ID>
+    <ID>SwallowedException:LoginActivity.kt$LoginActivity$e: Exception</ID>
+    <ID>SwallowedException:OTARepository.kt$OTARepository$e: Exception</ID>
+    <ID>SwallowedException:PackageVersionChecker.kt$PackageVersionChecker$e: Exception</ID>
+    <ID>SwallowedException:PackageVersionChecker.kt$PackageVersionChecker$e: PackageManager.NameNotFoundException</ID>
+    <ID>SwallowedException:PermissionManager.kt$PermissionManager$e: Exception</ID>
+    <ID>SwallowedException:PubgDownloadActivity.kt$PubgDownloadActivity$e: Exception</ID>
+    <ID>SwallowedException:PubgManifest.kt$PubgManifestLoader$e: Exception</ID>
+    <ID>SwallowedException:SecurePreferences.kt$SecurePreferences$t: Throwable</ID>
+    <ID>SwallowedException:ZeusPubgFragment.kt$ZeusPubgFragment$e2: Exception</ID>
+    <ID>SwallowedException:ZeusPubgFragment.kt$ZeusPubgFragment$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:APKInstaller.kt$APKInstaller$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidHWIDProvider.kt$AndroidHWIDProvider$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:AndroidKeystoreProvider.kt$AndroidKeystoreProvider$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DownloadHelper.kt$DownloadHelper$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:EnhancedSettingsFragment.kt$EnhancedSettingsFragment.&lt;no name provided&gt;$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:KeyAuthRepository.kt$KeyAuthRepository$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:LoginActivity.kt$LoginActivity$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:MainActivity.kt$MainActivity$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:OTAInterop.kt$OTAInterop$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:OTARepository.kt$OTARepository$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:OTAViewModel.kt$OTAViewModel$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:PackageVersionChecker.kt$PackageVersionChecker$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:PermissionManager.kt$PermissionManager$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:PreferencesMigration.kt$PreferencesMigration$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:PubgDownloadActivity.kt$PubgDownloadActivity$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:PubgDownloadActivity.kt$PubgViewHolder$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:PubgManifest.kt$PubgManifestLoader$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SecurePreferences.kt$SecurePreferences$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SecurePreferences.kt$SecurePreferences$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:SessionDebugger.kt$SessionDebugger$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SessionService.kt$SessionService$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ZeusPubgFragment.kt$ZeusPubgFragment$e2: Exception</ID>
+    <ID>TooGenericExceptionCaught:ZeusPubgFragment.kt$ZeusPubgFragment$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ZeusPubgFragment.kt$ZeusPubgViewHolder$e: Exception</ID>
+    <ID>TooGenericExceptionThrown:OTARepository.kt$OTARepository$throw Exception("APK verification failed")</ID>
+    <ID>TooGenericExceptionThrown:OTARepository.kt$OTARepository$throw Exception("Download failed: ${response.code()}")</ID>
+    <ID>TooGenericExceptionThrown:OTARepository.kt$OTARepository$throw Exception("Empty response body")</ID>
+    <ID>TooGenericExceptionThrown:OTARepository.kt$OTARepository$throw Exception("OBB verification failed")</ID>
+    <ID>TooManyFunctions:DownloadActivity.kt$DownloadActivity : AppCompatActivity</ID>
+    <ID>TooManyFunctions:EnhancedSettingsFragment.kt$EnhancedSettingsFragment : Fragment</ID>
+    <ID>TooManyFunctions:KeyAuthRepository.kt$KeyAuthRepository</ID>
+    <ID>TooManyFunctions:LoginActivity.kt$LoginActivity : AppCompatActivity</ID>
+    <ID>TooManyFunctions:OTAViewModel.kt$OTAViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:PermissionManager.kt$PermissionManager</ID>
+    <ID>TooManyFunctions:PubgVariantsFragment.kt$PubgVariantsFragment : BasePubgFragment</ID>
+    <ID>TooManyFunctions:SecurePreferences.kt$SecurePreferences : SessionStore</ID>
+    <ID>TooManyFunctions:UpdateAvailableActivity.kt$UpdateAvailableActivity : AppCompatActivity</ID>
+    <ID>TooManyFunctions:ZeusPubgFragment.kt$ZeusPubgFragment : BasePubgFragment</ID>
+    <ID>UnusedParameter:DownloadActivity.kt$DownloadActivity$state: OTAUpdateState.DownloadCompleted</ID>
+    <ID>UnusedParameter:MainActivity.kt$MainActivity$navId: Int</ID>
+    <ID>UnusedParameter:OTARepository.kt$OTARepository$variant: String</ID>
+    <ID>UnusedParameter:PermissionManager.kt$PermissionManager$resultCode: Int</ID>
+    <ID>UnusedParameter:PubgVariantsFragment.kt$PubgVariantsFragment$view: View</ID>
+    <ID>UnusedParameter:UpdateAvailableActivity.kt$UpdateAvailableActivity$state: OTAUpdateState.UpdateAvailable</ID>
+    <ID>UnusedPrivateMember:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$private fun showSuccessToast(message: String)</ID>
+    <ID>UnusedPrivateMember:KeyAuthRepository.kt$KeyAuthRepository$private fun generateHWID(): String</ID>
+    <ID>UnusedPrivateMember:LoginActivity.kt$LoginActivity$private fun showSuccess(message: String)</ID>
+    <ID>UnusedPrivateMember:PubgVariantsFragment.kt$PubgVariantsFragment$private fun requestPermissions()</ID>
+    <ID>UnusedPrivateMember:PubgVariantsFragment.kt$PubgVariantsFragment$private fun setupButtonAnimations(button: Button)</ID>
+    <ID>UnusedPrivateMember:PubgVariantsFragment.kt$PubgVariantsFragment$private fun setupFooterButtons(view: View)</ID>
+    <ID>UnusedPrivateMember:ZeusPubgFragment.kt$ZeusPubgFragment$private fun requestStoragePermissions()</ID>
+    <ID>UnusedPrivateProperty:MainActivity.kt$MainActivity$// AuthViewModel for sharing user data across fragments private val authViewModel: AuthViewModel by viewModels()</ID>
+    <ID>UnusedPrivateProperty:OTAViewModel.kt$OTAViewModel$val currentState = _updateState.value</ID>
+    <ID>UnusedPrivateProperty:SecurePreferences.kt$SecurePreferences.Companion$// Keystore configuration private const val KEYSTORE_PROVIDER = "AndroidKeyStore"</ID>
+    <ID>UnusedPrivateProperty:SecurePreferences.kt$SecurePreferences.Companion$private const val GCM_IV_LENGTH = 12</ID>
+    <ID>UnusedPrivateProperty:SecurePreferences.kt$SecurePreferences.Companion$private const val GCM_TAG_LENGTH = 16</ID>
+    <ID>UnusedPrivateProperty:SecurePreferences.kt$SecurePreferences.Companion$private const val TRANSFORMATION = "AES/GCM/NoPadding"</ID>
+    <ID>UnusedPrivateProperty:UpdateAvailableActivity.kt$UpdateAvailableActivity$// Activity result launcher for install permission private val installPermissionLauncher = registerForActivityResult( ActivityResultContracts.StartActivityForResult() ) { result -&gt; permissionManager.handleInstallPermissionResult( PermissionManager.REQUEST_INSTALL_PACKAGES, onGranted = { viewModel.proceedToVariantSelection() }, onDenied = { androidx.appcompat.app.AlertDialog.Builder(this) .setTitle("Permission Required") .setMessage("Install permission is required to automatically install updates.") .setPositiveButton("Settings") { _, _ -&gt; permissionManager.openAppSettings(this) } .setNegativeButton("Cancel", null) .show() } ) }</ID>
+    <ID>VariableNaming:PubgDownloadActivity.kt$PubgDownloadActivity$private val REQUEST_PERMISSIONS_CODE = 1001</ID>
+    <ID>VariableNaming:ZeusPubgFragment.kt$ZeusPubgFragment$private val REQUEST_PERMISSIONS_CODE = 1001</ID>
+    <ID>WildcardImport:AndroidHWIDProviderTest.kt$import org.junit.Assert.*</ID>
+    <ID>WildcardImport:KeyAuthRepositoryHWIDTest.kt$import org.junit.Assert.*</ID>
+    <ID>WildcardImport:KeyAuthRepositoryTest.kt$import org.junit.Assert.*</ID>
+    <ID>WildcardImport:OTARepository.kt$import com.bearmod.loader.data.model.*</ID>
+    <ID>WildcardImport:OTAViewModel.kt$import com.bearmod.loader.data.model.*</ID>
+    <ID>WildcardImport:OTAViewModel.kt$import kotlinx.coroutines.flow.*</ID>
+    <ID>WildcardImport:SecurePreferencesTest.kt$import org.junit.Assert.*</ID>
+    <ID>WildcardImport:SessionServiceTest.kt$import org.junit.Assert.*</ID>
+    <ID>Wrapping:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$(</ID>
+    <ID>Wrapping:EnhancedSettingsFragment.kt$EnhancedSettingsFragment$(viewLifecycleOwner, Observer { authState -&gt; Log.d("EnhancedSettingsFragment", "Authentication state changed: $authState") currentAuthState = authState if (isAdded &amp;&amp; !isDetached) { updateLicenseInformation() } })</ID>
+    <ID>Wrapping:KeyAuthRepository.kt$KeyAuthRepository$(</ID>
+    <ID>Wrapping:LoginActivity.kt$LoginActivity$(</ID>
+    <ID>Wrapping:LoginViewModel.kt$LoginViewModel$(</ID>
+    <ID>Wrapping:OTARepository.kt$OTARepository$(</ID>
+    <ID>Wrapping:OTAViewModel.kt$OTAViewModel$(</ID>
+  </CurrentIssues>
+</SmellBaseline>

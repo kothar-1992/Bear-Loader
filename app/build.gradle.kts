@@ -120,5 +120,7 @@ detekt {
     toolVersion = "1.23.1"
     config = files("${project.rootDir}/detekt.yml")
     buildUponDefaultConfig = true
+    // Use the generated baseline to ignore historical issues
+    baseline = file("${projectDir}/detekt-baseline.xml")
     allRules = false
 }
