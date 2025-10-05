@@ -13,9 +13,10 @@
     <color name="dark_background">#FF0F1419</color>
     <color name="dark_surface">#FF1A1F2E</color>
     <color name="dark_surface_variant">#FF2A3441</color>
-    <color name="primary_blue">#FF4FC3F7</color>
-    <color name="primary_blue_dark">#FF29B6F6</color>
-    <color name="accent_orange">#FFFF9800</color>
+    <!-- Refined accents for a premium look -->
+    <color name="primary_blue">#FF0ABDE6</color>
+    <color name="primary_blue_dark">#FF0A95C0</color>
+    <color name="accent_orange">#FFFFA726</color>
     <color name="accent_orange_dark">#FFF57C00</color>
     <color name="text_primary">#FFFFFFFF</color>
     <color name="text_secondary">#FFB0BEC5</color>
@@ -32,9 +33,9 @@
     <color name="input_stroke_focused">#FF4FC3F7</color>
 
     <!-- Button colors -->
-    <color name="button_background">#FF4FC3F7</color>
-    <color name="button_background_pressed">#FF29B6F6</color>
-    <color name="button_text">#FF000000</color>
+    <color name="button_background">#FF0ABDE6</color>
+    <color name="button_background_pressed">#FF0A95C0</color>
+    <color name="button_text">#FF031019</color>
 
     <!-- Checkbox colors -->
     <color name="checkbox_unchecked">#FF78909C</color>
@@ -46,9 +47,10 @@
 
     <!-- Material Design 3 Chinese-Inspired Colors -->
     <!-- Primary Colors - Red (Lucky color in Chinese culture) -->
-    <color name="md3_primary">#FFE53935</color>
-    <color name="md3_primary_variant">#FFD32F2F</color>
-    <color name="md3_primary_container">#FFFFEBEE</color>
+    <!-- Primary - keep warm accent for logo ring, but app primary will be cool cyan -->
+    <color name="md3_primary">#FF0ABDE6</color>
+    <color name="md3_primary_variant">#FF0A95C0</color>
+    <color name="md3_primary_container">#FFE8F9FB</color>
     <color name="md3_on_primary">#FFFFFFFF</color>
     <color name="md3_on_primary_container">#FFB71C1C</color>
 
@@ -67,13 +69,14 @@
     <color name="md3_on_tertiary_container">#FF0D47A1</color>
 
     <!-- Modern Background Colors -->
-    <color name="md3_background">#FF0A0E13</color>
+    <!-- Dark-blue background and surfaces for premium look -->
+    <color name="md3_background">#FF06122B</color>
     <color name="md3_on_background">#FFFFFFFF</color>
-    <color name="md3_surface">#FF1A1F2E</color>
-    <color name="md3_surface_variant">#FF2A3441</color>
-    <color name="md3_surface_container">#FF212832</color>
-    <color name="md3_surface_container_high">#FF2C3440</color>
-    <color name="md3_surface_container_highest">#FF37404D</color>
+    <color name="md3_surface">#FF0E2033</color>
+    <color name="md3_surface_variant">#FF193247</color>
+    <color name="md3_surface_container">#FF122633</color>
+    <color name="md3_surface_container_high">#FF1B3546</color>
+    <color name="md3_surface_container_highest">#FF243D56</color>
     <color name="md3_on_surface">#FFFFFFFF</color>
     <color name="md3_on_surface_variant">#FFB0BEC5</color>
 
@@ -88,9 +91,9 @@
     <color name="gradient_end">#FFFFC107</color>
 
     <!-- Card and Elevation Colors -->
-    <color name="card_background">#FF2A3441</color>
-    <color name="card_elevated">#FF37404D</color>
-    <color name="card_stroke">#FF455A64</color>
+    <color name="card_background">#FF112233</color>
+    <color name="card_elevated">#FF183147</color>
+    <color name="card_stroke">#FF274055</color>
 
     <!-- Launcher Icon Background -->
     <color name="ic_launcher_background">#FF000000</color>

@@ -44,19 +44,10 @@
                 android:layout_height="170dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/bear_logo_description"
-                android:src="@drawable/ic_bear_logo"
+                android:src="@drawable/bear_icon"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
                 android:padding="10dp" />
-
-            <ImageView
-                android:id="@+id/ivLogoShimmer"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:layout_gravity="center"
-                android:src="@drawable/logo_shimmer"
-                android:scaleType="fitCenter"
-                android:alpha="0.55" />
 
         </FrameLayout>
 
@@ -65,7 +56,7 @@
     <!-- Modern App Title with 3D Effect -->
     <TextView
         android:id="@+id/tvAppTitle"
-        style="@style/ModernTitle"
+        style="@style/ModernTitleUpper"
         android:animateLayoutChanges="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

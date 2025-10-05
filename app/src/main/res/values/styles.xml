@@ -3,15 +3,16 @@
     <!-- Modern 3D Button Style -->
     <style name="ModernButton" parent="Widget.MaterialComponents.Button">
         <item name="android:background">@drawable/button_3d_modern</item>
-        <item name="android:textColor">@color/md3_on_primary</item>
+        <item name="android:foreground">@drawable/ripple_effect</item>
+        <item name="android:textColor">@color/button_text</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:elevation">8dp</item>
-        <item name="android:paddingLeft">32dp</item>
-        <item name="android:paddingRight">32dp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
+        <item name="android:elevation">12dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
         <item name="android:minHeight">56dp</item>
         <item name="cornerRadius">28dp</item>
     </style>
@@ -44,9 +45,14 @@
     <!-- Modern Text Styles -->
     <style name="ModernTitle" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="ModernTitleUpper" parent="ModernTitle">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.08</item>
     </style>
 
     <style name="ModernSubtitle" parent="TextAppearance.MaterialComponents.Body1">
