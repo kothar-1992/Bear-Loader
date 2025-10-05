@@ -1,0 +1,28 @@
+# Minimal Detekt configuration for Bear-Loader
+# Start with buildUponDefaultConfig true in Gradle to inherit defaults and then tweak rules
+
+processors:
+  active: true
+
+config:
+  validation: true
+
+style:
+  ForbiddenComment:
+    active: false
+
+comments:
+  CommentOverPrivateFunction:
+    active: false
+
+
+# You can add rules to disable noisy checks here if required by the project
+
+
+formatting:
+  active: true
+  autoCorrect: true
+
+
+# Exclude generated files and build directories
+excludes: "**/build/**,**/generated/**,**/resources/**"

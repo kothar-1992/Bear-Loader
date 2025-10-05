@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+    // Detekt plugin is applied in modules that need it. Version is declared here for consistency.
+    id("io.gitlab.arturbosch.detekt") version "1.23.1" apply false
 }
 
 // Convenience CI task to run common checks

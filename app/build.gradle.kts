@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
@@ -109,4 +110,15 @@ dependencies {
     testImplementation(libs.robolectric)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Detekt formatting rules (optional but helpful)
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
+}
+
+// Detekt configuration
+detekt {
+    toolVersion = "1.23.1"
+    config = files("${project.rootDir}/detekt.yml")
+    buildUponDefaultConfig = true
+    allRules = false
 }
