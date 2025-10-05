@@ -2,7 +2,7 @@ name: Project Metrics
 
 on:
   schedule:
-    - cron: '0 6 * * MON' # Every Monday 06:00 UTC
+    - cron: '0 6 * * *' # Daily at 06:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -45,8 +45,21 @@ jobs:
             const mergedPrs = await github.paginate(github.rest.pulls.list, { owner, repo, state: 'closed', per_page: 100 });
             const recentMerged = mergedPrs.filter(p => p.merged_at && new Date(p.merged_at) >= new Date(since));
             let totalMergeMs = 0;
+            const mergeDurations = [];
             for (const p of recentMerged) totalMergeMs += (new Date(p.merged_at) - new Date(p.created_at));
             const meanTimeToMergeDays = recentMerged.length ? (totalMergeMs / recentMerged.length) / (24*60*60*1000) : 0;
+            for (const p of recentMerged) mergeDurations.push((new Date(p.merged_at) - new Date(p.created_at)) / (24*60*60*1000));
+            // median
+            let medianTimeToMergeDays = 0;
+            if (mergeDurations.length) {
+              mergeDurations.sort((a,b) => a-b);
+              const mid = Math.floor(mergeDurations.length/2);
+              medianTimeToMergeDays = (mergeDurations.length % 2 === 0) ? ((mergeDurations[mid-1]+mergeDurations[mid])/2) : mergeDurations[mid];
+            }
+
+            // Average review comments per merged PR
+            const totalReviewComments = recentMerged.reduce((acc,p) => acc + (p.review_comments || 0), 0);
+            const avgReviewComments = recentMerged.length ? (totalReviewComments / recentMerged.length) : 0;
 
             // CI pass rate: check workflow runs in last 30 days
             const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, { owner, repo, per_page: 100 });
@@ -66,6 +79,10 @@ jobs:
               else issueAgeBuckets['>30']++;
             }
 
+            // Stale issues > 60 days
+            const staleThreshold = 60;
+            const staleIssues = issues.filter(i => Math.floor((now - new Date(i.created_at).getTime()) / (24*60*60*1000)) > staleThreshold).length;
+
             // Build markdown
             const md = [];
             md.push('# Project Metrics');
@@ -82,6 +99,8 @@ jobs:
             md.push('');
             md.push('## Merge Metrics');
             md.push(`Mean time to merge (last ${sinceDays} days): ${meanTimeToMergeDays.toFixed(2)} days`);
+            md.push(`Median time to merge (last ${sinceDays} days): ${medianTimeToMergeDays.toFixed(2)} days`);
+            md.push(`Average review comments (merged PRs): ${avgReviewComments.toFixed(2)}`);
             md.push('');
             md.push('## CI Metrics');
             md.push(`Workflow runs (last ${sinceDays} days): ${recentRuns.length}`);
@@ -94,6 +113,8 @@ jobs:
             md.push(`- <= 14 days: ${issueAgeBuckets['<=14']}`);
             md.push(`- <= 30 days: ${issueAgeBuckets['<=30']}`);
             md.push(`- > 30 days: ${issueAgeBuckets['>30']}`);
+            md.push('');
+            md.push(`Stale issues (> ${staleThreshold} days): ${staleIssues}`);
 
             const content = md.join('\n');
 
@@ -116,6 +137,42 @@ jobs:
             }
 
             core.info('Project metrics generated and committed to ' + path);
+
+            // Also update README: replace between markers if present, else append
+            try {
+              const readmePath = 'README.md';
+              let readme;
+              try { readme = await github.rest.repos.getContent({ owner, repo, path: readmePath }); } catch(e) { readme = null; }
+              let readmeText = '';
+              if (readme && readme.data && readme.data.content) {
+                readmeText = Buffer.from(readme.data.content, 'base64').toString('utf8');
+              }
+
+              const startMarker = '<!-- PROJECT_METRICS_START -->';
+              const endMarker = '<!-- PROJECT_METRICS_END -->';
+              const newSection = `\n${startMarker}\n${content}\n${endMarker}\n`;
+
+              let updatedReadme = readmeText;
+              if (readmeText.includes(startMarker) && readmeText.includes(endMarker)) {
+                const before = readmeText.split(startMarker)[0];
+                const after = readmeText.split(endMarker).slice(1).join(endMarker);
+                updatedReadme = before + newSection + after;
+              } else {
+                // Append
+                updatedReadme = readmeText + '\n' + newSection;
+              }
+
+              const encReadme = Buffer.from(updatedReadme).toString('base64');
+              if (readme && readme.data && readme.data.sha) {
+                await github.rest.repos.createOrUpdateFileContents({ owner, repo, path: readmePath, message: 'chore(reports): update README project metrics', content: encReadme, sha: readme.data.sha });
+              } else {
+                await github.rest.repos.createOrUpdateFileContents({ owner, repo, path: readmePath, message: 'chore(reports): add project metrics to README', content: encReadme });
+              }
+
+              core.info('README updated with latest project metrics');
+            } catch (e) {
+              core.warning('Failed to update README with metrics: ' + e.message);
+            }
 
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
