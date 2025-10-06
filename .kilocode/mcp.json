@@ -7,8 +7,15 @@
         "@upstash/context7-mcp"
       ],
       "env": {
-        "DEFAULT_MINIMUM_TOKENS": ""
+        "DEFAULT_MINIMUM_TOKENS": "3000"
       }
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
     },
     "sequentialthinking": {
       "command": "npx",

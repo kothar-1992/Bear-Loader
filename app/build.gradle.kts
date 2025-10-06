@@ -7,7 +7,9 @@ plugins {
 android {
     namespace = "com.bearmod.loader"
     compileSdk = 36
-
+   lint {
+       baseline = file("lint-baseline.xml")
+    }
     defaultConfig {
         applicationId = "com.bearmod.loader"
         minSdk = 24
@@ -104,6 +106,10 @@ dependencies {
     testImplementation(libs.mockito.core)
     // Mockito-Kotlin helpers (for nicer Kotlin-friendly mocks/stubs) - pinned to 5.1.0
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+    // Coroutines test helpers
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    // Architecture components testing (InstantTaskExecutorRule)
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
     // AndroidX Test dependencies required by some JVM tests (ApplicationProvider, AndroidJUnit4)
     testImplementation(libs.androidx.core)
     testImplementation(libs.androidx.junit.v115)

@@ -645,6 +645,11 @@ class SecurePreferences @JvmOverloads constructor(
                 .remove(KEY_DEVICE_REGISTERED)
                 .remove(KEY_LAST_AUTH_HWID)
                 .remove(KEY_BOUND_LICENSE)
+                // Also clear stored license and preference flags so a full "auth reset" removes
+                // any user-identifying data and auth-related preferences.
+                .remove(KEY_LICENSE_KEY)
+                .remove(KEY_REMEMBER_LICENSE)
+                .remove(KEY_AUTO_LOGIN)
                 .remove("registration_timestamp")
                 .remove("last_trust_update")
                 .apply()

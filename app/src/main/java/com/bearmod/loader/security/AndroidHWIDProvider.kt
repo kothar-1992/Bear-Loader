@@ -2,7 +2,7 @@ package com.bearmod.loader.security
 
 import android.content.Context
 import android.os.Build
-import com.bearmod.loader.utils.SecurePreferences
+// HWID provider persists HWID via SecurePrefsAdapterImpl; no direct SecurePreferences import needed
 import java.security.MessageDigest
 
 /**
@@ -11,11 +11,14 @@ import java.security.MessageDigest
  * device properties and returns the hex string. Persists the value via
  * SecurePreferences so it survives app reinstalls.
  */
-class AndroidHWIDProvider(private val context: Context, private val securePreferences: SecurePreferences = SecurePreferences(context)) : HWIDProvider {
+class AndroidHWIDProvider(
+    private val context: Context,
+    private val securePreferencesAdapter: com.bearmod.loader.utils.SecurePrefsAdapter = com.bearmod.loader.utils.SecurePrefsAdapterImpl(context)
+) : HWIDProvider {
 
     override fun getHWID(): String {
         // Prefer previously stored HWID
-        val existing = securePreferences.getStoredHWID()
+    val existing = securePreferencesAdapter.getStoredHWID()
         if (!existing.isNullOrBlank()) return existing
 
         // Generate HWID using stable device identifiers
@@ -23,12 +26,12 @@ class AndroidHWIDProvider(private val context: Context, private val securePrefer
         val hwidHex = bytesToHex(hwidBytes)
 
         // Persist generated HWID
-        securePreferences.storeHWID(hwidHex)
+        securePreferencesAdapter.storeHWID(hwidHex)
         return hwidHex
     }
 
     override fun clearHWID() {
-        securePreferences.clearStoredHWID()
+        securePreferencesAdapter.clearStoredHWID()
     }
 
     private fun generateHWIDBytes(): ByteArray {

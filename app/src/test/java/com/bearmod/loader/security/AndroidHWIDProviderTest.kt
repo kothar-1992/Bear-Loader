@@ -1,7 +1,7 @@
 package com.bearmod.loader.security
 
 import androidx.test.core.app.ApplicationProvider
-import com.bearmod.loader.utils.SecurePreferences
+import com.bearmod.loader.utils.SecurePrefsAdapterImpl
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,12 +13,12 @@ class AndroidHWIDProviderTest {
     @Test
     fun `hwid is generated and persisted`() {
         val context = ApplicationProvider.getApplicationContext<android.content.Context>()
-        val securePrefs = SecurePreferences(context)
+    val securePrefs = SecurePrefsAdapterImpl(context)
 
-        // Ensure clear state
-        securePrefs.clearStoredHWID()
+    // Ensure clear state
+    securePrefs.clearStoredHWID()
 
-        val provider = AndroidHWIDProvider(context, securePrefs)
+    val provider = AndroidHWIDProvider(context, securePrefs)
 
         val first = provider.getHWID()
         assertNotNull(first)

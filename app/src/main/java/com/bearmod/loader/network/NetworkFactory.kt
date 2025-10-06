@@ -4,7 +4,7 @@ import android.content.Context
 import com.bearmod.loader.config.KeyAuthConfig
 import com.bearmod.loader.data.api.KeyAuthApiService
 import com.bearmod.loader.data.api.OTAApiService
-import com.bearmod.loader.data.repository.KeyAuthRepository
+import com.bearmod.loader.data.repository.AuthRepository
 import com.bearmod.loader.data.repository.OTARepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -70,8 +70,8 @@ object NetworkFactory {
         return createOTARetrofit().create(OTAApiService::class.java)
     }
 
-    fun createKeyAuthRepository(context: Context): KeyAuthRepository {
-        return KeyAuthRepository(createApiService(), context)
+    fun createKeyAuthRepository(context: Context): AuthRepository {
+        return AuthRepository(createApiService(), context)
     }
 
     fun createOTARepository(context: Context): OTARepository {

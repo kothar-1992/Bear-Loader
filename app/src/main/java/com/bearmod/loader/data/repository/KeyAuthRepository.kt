@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import retrofit2.Response
 import java.security.MessageDigest
+import com.bearmod.loader.data.storage.KeyAuthSessionStore
 /**
  * Repository for KeyAuth API operations
  */
@@ -32,7 +33,10 @@ class KeyAuthRepository(
     private val apiService: KeyAuthApiService,
     private val context: Context,
     private val enableLogging: Boolean = true,
-    private val hwidProvider: HWIDProvider = AndroidHWIDProvider(context)
+    private val hwidProvider: HWIDProvider = AndroidHWIDProvider(context),
+    // Optional session store for incremental migration. If provided, repository will
+    // use it for session/device persistence. Otherwise falls back to legacy SecurePreferences.
+    private val sessionStore: KeyAuthSessionStore? = null
 ) {
 
     // KeyAuth application configuration from config
@@ -42,9 +46,61 @@ class KeyAuthRepository(
     private val customHash = KeyAuthConfig.CUSTOM_HASH
     private val apiBaseUrl = KeyAuthConfig.API_BASE_URL
 
-    // Secure preferences and a session service for session/token operations
+    // Secure preferences and a session service bridge for session/token operations
     private val securePreferences = SecurePreferences(context, hwidProvider = hwidProvider)
-    private val sessionService = com.bearmod.loader.utils.SessionService(context)
+
+    // Small typed bridge so callers in this class can call clear/get methods without
+    // anonymous-object typing issues. The bridge delegates to either the new
+    // session store based SessionService or the legacy util SessionService.
+    private interface SessionServiceBridge {
+        fun clearSessionToken()
+        fun clearCorruptedSession()
+        fun getSessionToken(): String?
+    }
+
+    private val sessionService: SessionServiceBridge = if (sessionStore != null) {
+        // Adapter to satisfy com.bearmod.loader.session.SessionStore expected by the
+        // new SessionService implementation
+        val sessionStoreAdapter = object : com.bearmod.loader.session.SessionStore {
+            override fun getSessionToken(): String? = sessionStore.getSessionToken()
+            override fun storeSessionToken(sessionToken: String, expiryTimeMillis: Long) = sessionStore.storeSessionToken(sessionToken, expiryTimeMillis)
+            override fun clearSessionToken() = sessionStore.clearSessionToken()
+            override fun isDeviceRegistered(): Boolean = sessionStore.isDeviceRegistered()
+            override fun clearDeviceRegistration() = sessionStore.clearDeviceRegistration()
+        }
+
+        val legacyService = com.bearmod.loader.session.SessionService(sessionStoreAdapter)
+
+        object : SessionServiceBridge {
+            override fun clearSessionToken() {
+                // Prefer clearing directly on the injected session store
+                try {
+                    sessionStore.clearSessionToken()
+                } catch (e: Exception) {
+                    // Fallback to legacy service if anything goes wrong
+                    try { legacyService.clearCorruptedSession() } catch (_: Exception) {}
+                }
+            }
+
+            override fun clearCorruptedSession() {
+                try {
+                    legacyService.clearCorruptedSession()
+                } catch (e: Exception) {
+                    // As a fallback, clear token directly
+                    try { sessionStore.clearSessionToken() } catch (_: Exception) {}
+                }
+            }
+
+            override fun getSessionToken(): String? = try { sessionStore.getSessionToken() } catch (e: Exception) { null }
+        }
+    } else {
+        val utilService = com.bearmod.loader.utils.SessionService(context)
+        object : SessionServiceBridge {
+            override fun clearSessionToken() = try { utilService.clearSessionToken() } catch (_: Exception) {}
+            override fun clearCorruptedSession() = try { utilService.clearSessionToken() } catch (_: Exception) {}
+            override fun getSessionToken(): String? = try { securePreferences.getSessionToken() } catch (_: Exception) { null }
+        }
+    }
 
     private var sessionId: String? = null
     @Volatile
@@ -360,8 +416,8 @@ class KeyAuthRepository(
      * across app reinstallations, preventing KeyAuth HWID reset requirements
      */
     private fun generateHWID(): String {
-        // First, try to retrieve existing HWID from secure storage
-        val existingHWID = securePreferences.getStoredHWID()
+        // First, try to retrieve existing HWID from secure storage (prefer injected sessionStore)
+        val existingHWID = sessionStore?.getStoredHWID() ?: securePreferences.getStoredHWID()
         if (existingHWID != null && existingHWID.isNotBlank()) {
             return existingHWID
         }
@@ -370,7 +426,11 @@ class KeyAuthRepository(
         val hwid = generatePersistentHWID()
 
         // Store the generated HWID for future use
-        securePreferences.storeHWID(hwid)
+        if (sessionStore != null) {
+            sessionStore.storeHWID(hwid)
+        } else {
+            securePreferences.storeHWID(hwid)
+        }
 
         return hwid
     }
@@ -458,8 +518,8 @@ class KeyAuthRepository(
                 SessionDebugger.logSessionRestoreAttempt(context)
             }
 
-            // Check if we have stored session data
-            val storedToken = securePreferences.getSessionToken()
+            // Check if we have stored session data (prefer injected sessionStore during migration)
+            val storedToken = sessionStore?.getSessionToken() ?: securePreferences.getSessionToken()
             if (storedToken.isNullOrEmpty()) {
                 if (enableLogging) {
                     Log.d("KeyAuthRepository", "❌ No stored session token found")
@@ -469,16 +529,16 @@ class KeyAuthRepository(
                 return@withContext SessionRestoreResult.NoStoredSession
             }
 
-            // Enhanced logging for session token details
-            if (enableLogging) {
-                Log.d("KeyAuthRepository", "📦 Using stored session token: ${storedToken.take(8)}...")
-                Log.d("KeyAuthRepository", "⏳ Token valid: ${securePreferences.isSessionTokenValid()}")
-                Log.d("KeyAuthRepository", "📱 Device registered: ${securePreferences.isDeviceRegistered()}")
-                Log.d("KeyAuthRepository", "🔑 Trust level: ${securePreferences.getDeviceTrustLevel()}")
-            }
+                // Enhanced logging for session token details
+                if (enableLogging) {
+                    Log.d("KeyAuthRepository", "📦 Using stored session token: ${storedToken.take(8)}...")
+                    Log.d("KeyAuthRepository", "⏳ Token valid: ${sessionStore?.isSessionTokenValid() ?: securePreferences.isSessionTokenValid()}")
+                    Log.d("KeyAuthRepository", "📱 Device registered: ${sessionStore?.isDeviceRegistered() ?: securePreferences.isDeviceRegistered()}")
+                    Log.d("KeyAuthRepository", "🔑 Trust level: ${sessionStore?.getDeviceTrustLevel() ?: securePreferences.getDeviceTrustLevel()}")
+                }
 
             // Check if device is registered
-            if (!securePreferences.isDeviceRegistered()) {
+            if (!(sessionStore?.isDeviceRegistered() ?: securePreferences.isDeviceRegistered())) {
                 if (enableLogging) Log.d("KeyAuthRepository", "❌ Device not registered")
                 _authFlowState.value = AuthFlowState.IDLE
                 return@withContext SessionRestoreResult.NoStoredSession
@@ -486,7 +546,7 @@ class KeyAuthRepository(
 
             // Validate HWID consistency
             val currentHwid = hwidProvider.getHWID()
-            val lastAuthHwid = securePreferences.getLastAuthHWID()
+            val lastAuthHwid = sessionStore?.getLastAuthHWID() ?: securePreferences.getLastAuthHWID()
 
             if (lastAuthHwid != null && lastAuthHwid != currentHwid) {
                 if (enableLogging) Log.w("KeyAuthRepository", "⚠️ HWID mismatch detected")
@@ -495,7 +555,7 @@ class KeyAuthRepository(
             }
 
             // Check if session token is expired
-            if (!securePreferences.isSessionTokenValid()) {
+            if (!(sessionStore?.isSessionTokenValid() ?: securePreferences.isSessionTokenValid())) {
                 if (enableLogging) Log.d("KeyAuthRepository", "⏰ Session token expired")
 
                 // Try to refresh token if available
@@ -544,8 +604,12 @@ class KeyAuthRepository(
                     if (enableLogging) Log.d("KeyAuthRepository", "✅ Session restored successfully")
 
                     // Update trust level
-                    val currentTrust = securePreferences.getDeviceTrustLevel()
-                    securePreferences.setDeviceTrustLevel(minOf(currentTrust + 1, 3))
+                    val currentTrust = sessionStore?.getDeviceTrustLevel() ?: securePreferences.getDeviceTrustLevel()
+                    if (sessionStore != null) {
+                        sessionStore.setDeviceTrustLevel(minOf(currentTrust + 1, 3))
+                    } else {
+                        securePreferences.setDeviceTrustLevel(minOf(currentTrust + 1, 3))
+                    }
 
                     _authFlowState.value = AuthFlowState.AUTHENTICATED
                     return@withContext createSessionRestoreSuccess()
@@ -587,26 +651,22 @@ class KeyAuthRepository(
     private fun createSessionRestoreSuccess(): SessionRestoreResult {
         val authState = AuthenticationState(
             isAuthenticated = true,
-            sessionToken = securePreferences.getSessionToken(),
-            refreshToken = securePreferences.getRefreshToken(),
+            sessionToken = sessionStore?.getSessionToken() ?: securePreferences.getSessionToken(),
+            refreshToken = sessionStore?.getRefreshToken() ?: securePreferences.getRefreshToken(),
             hwid = currentHWID,
-            licenseKey = securePreferences.getBoundLicenseKey(),
-            deviceTrustLevel = securePreferences.getDeviceTrustLevel(),
-            isDeviceRegistered = securePreferences.isDeviceRegistered()
+            licenseKey = sessionStore?.getBoundLicenseKey() ?: securePreferences.getBoundLicenseKey(),
+            deviceTrustLevel = sessionStore?.getDeviceTrustLevel() ?: securePreferences.getDeviceTrustLevel(),
+            isDeviceRegistered = sessionStore?.isDeviceRegistered() ?: securePreferences.isDeviceRegistered()
         )
 
         _authenticationState.value = authState
         return SessionRestoreResult.Success(authState)
     }
 
-    /**
-     * Attempt to refresh expired session token
-     */
     private suspend fun attemptTokenRefresh(): NetworkResult<KeyAuthResponse> = withContext(Dispatchers.IO) {
         try {
             _authFlowState.value = AuthFlowState.REFRESHING_TOKEN
-
-            val refreshToken = securePreferences.getRefreshToken()
+            val refreshToken = sessionStore?.getRefreshToken() ?: securePreferences.getRefreshToken()
             if (refreshToken.isNullOrEmpty()) {
                 if (enableLogging) Log.d("KeyAuthRepository", "❌ No refresh token available")
                 return@withContext NetworkResult.Error("No refresh token available")
@@ -632,7 +692,7 @@ class KeyAuthRepository(
         try {
             _authFlowState.value = AuthFlowState.AUTHENTICATING_WITH_LICENSE
 
-            val boundLicense = securePreferences.getBoundLicenseKey()
+            val boundLicense = sessionStore?.getBoundLicenseKey() ?: securePreferences.getBoundLicenseKey()
             if (boundLicense.isNullOrEmpty()) {
                 if (enableLogging) Log.d("KeyAuthRepository", "❌ No bound license key found")
                 return@withContext NetworkResult.Error("No bound license key")
@@ -658,14 +718,9 @@ class KeyAuthRepository(
                 is NetworkResult.Success -> {
                     if (enableLogging) Log.d("KeyAuthRepository", "✅ HWID-based authentication successful")
 
-                    // Update device registration
-                    securePreferences.setDeviceRegistered(hwid, boundLicense)
-
-                    // Store session token with extended expiry for trusted devices
-                    val trustLevel = securePreferences.getDeviceTrustLevel()
-                    val expiryTime = System.currentTimeMillis() + (24 * 60 * 60 * 1000L) // 24 hours
-                    securePreferences.storeSessionToken(authResult.data.sessionId ?: "", expiryTime)
-
+                    // Persistence (storing session token / device registration) is handled
+                    // by authenticateWithLicense -> handleSuccessfulAuthentication(), so
+                    // avoid duplicating those calls here to prevent double-writes.
                     return@withContext authResult
                 }
                 is NetworkResult.Error -> {
@@ -689,7 +744,7 @@ class KeyAuthRepository(
     fun validateHWID(): HWIDValidationResult {
         return try {
             val currentHwid = hwidProvider.getHWID()
-            val lastAuthHwid = securePreferences.getLastAuthHWID()
+            val lastAuthHwid = sessionStore?.getLastAuthHWID() ?: securePreferences.getLastAuthHWID()
 
             when {
                 lastAuthHwid == null -> {
@@ -718,7 +773,7 @@ class KeyAuthRepository(
         try {
             // Store session token with expiry
             val sessionToken = response.sessionId ?: ""
-            val trustLevel = securePreferences.getDeviceTrustLevel()
+            val trustLevel = sessionStore?.getDeviceTrustLevel() ?: securePreferences.getDeviceTrustLevel()
 
             // Calculate expiry based on trust level (higher trust = longer sessions)
             val expiryDuration = when (trustLevel) {
@@ -729,14 +784,19 @@ class KeyAuthRepository(
             }
 
             val expiryTime = System.currentTimeMillis() + expiryDuration
-            securePreferences.storeSessionToken(sessionToken, expiryTime)
-
-            // Register device and bind license
-            securePreferences.setDeviceRegistered(hwid, licenseKey)
-
-            // Increase trust level
             val newTrustLevel = minOf(trustLevel + 1, 3)
-            securePreferences.setDeviceTrustLevel(newTrustLevel)
+            if (sessionStore != null) {
+                sessionStore.storeSessionToken(sessionToken, expiryTime)
+                // Register device and bind license
+                sessionStore.setDeviceRegistered(hwid, licenseKey)
+                sessionStore.setDeviceTrustLevel(newTrustLevel)
+            } else {
+                securePreferences.storeSessionToken(sessionToken, expiryTime)
+                // Register device and bind license
+                securePreferences.setDeviceRegistered(hwid, licenseKey)
+                // Increase trust level
+                securePreferences.setDeviceTrustLevel(newTrustLevel)
+            }
 
             // Update current HWID
             currentHWID = hwid
@@ -778,9 +838,9 @@ class KeyAuthRepository(
      * Check if user can auto-login (has valid session or bound license)
      */
     fun canAutoLogin(): Boolean {
-        return securePreferences.isDeviceRegistered() &&
-               !securePreferences.getBoundLicenseKey().isNullOrEmpty() &&
-               securePreferences.getDeviceTrustLevel() > 0
+     return (sessionStore?.isDeviceRegistered() ?: securePreferences.isDeviceRegistered()) &&
+         !((sessionStore?.getBoundLicenseKey() ?: securePreferences.getBoundLicenseKey()).isNullOrEmpty()) &&
+         (sessionStore?.getDeviceTrustLevel() ?: securePreferences.getDeviceTrustLevel()) > 0
     }
 
     /**
@@ -796,8 +856,12 @@ class KeyAuthRepository(
                 isInitialized = false
             }
 
-            // Clear stored authentication data
-            securePreferences.clearAuthenticationData()
+            // Clear stored authentication data (prefer sessionStore if present)
+            if (sessionStore != null) {
+                sessionStore.clearAuthenticationData()
+            } else {
+                securePreferences.clearAuthenticationData()
+            }
 
             // Reset authentication state
             _authenticationState.value = AuthenticationState()
@@ -897,10 +961,10 @@ class KeyAuthRepository(
             "version" to version,
             "baseUrl" to apiBaseUrl,
             "customHash" to (customHash?.take(8) ?: "null"),
-            "hasStoredToken" to (!securePreferences.getSessionToken().isNullOrEmpty()).toString(),
-            "isTokenValid" to securePreferences.isSessionTokenValid().toString(),
-            "isDeviceRegistered" to securePreferences.isDeviceRegistered().toString(),
-            "deviceTrustLevel" to securePreferences.getDeviceTrustLevel().toString(),
+            "hasStoredToken" to (!((sessionStore?.getSessionToken() ?: securePreferences.getSessionToken()).isNullOrEmpty())).toString(),
+            "isTokenValid" to (sessionStore?.isSessionTokenValid() ?: securePreferences.isSessionTokenValid()).toString(),
+            "isDeviceRegistered" to (sessionStore?.isDeviceRegistered() ?: securePreferences.isDeviceRegistered()).toString(),
+            "deviceTrustLevel" to (sessionStore?.getDeviceTrustLevel() ?: securePreferences.getDeviceTrustLevel()).toString(),
             "currentHWID" to (currentHWID?.take(8) ?: "null")
         )
     }

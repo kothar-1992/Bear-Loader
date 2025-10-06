@@ -19,14 +19,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.bearmod.loader.R
-import com.bearmod.loader.data.repository.KeyAuthRepository
+import com.bearmod.loader.data.repository.AuthRepository
 import com.bearmod.loader.data.model.AuthenticationState
 import com.bearmod.loader.network.NetworkFactory
 import com.bearmod.loader.ui.LoginActivity
 import com.bearmod.loader.ui.MainActivity
 import com.bearmod.loader.utils.LanguageManager
 import com.bearmod.loader.utils.SessionManager
-import com.bearmod.loader.utils.SecurePreferences
 import com.bearmod.loader.viewmodel.AuthViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,9 +56,10 @@ class EnhancedSettingsFragment : Fragment() {
     // Utilities
     private lateinit var languageManager: LanguageManager
     private lateinit var sessionManager: SessionManager
-    private lateinit var securePreferences: SecurePreferences
+    private lateinit var securePrefsAdapter: com.bearmod.loader.utils.SecurePrefsAdapter
+    private lateinit var securePrefsAdapterImpl: com.bearmod.loader.utils.SecurePrefsAdapterImpl
     private lateinit var authViewModel: AuthViewModel
-    private lateinit var keyAuthRepository: KeyAuthRepository
+    private lateinit var authRepository: AuthRepository
 
     // Update handler for countdown
     private val updateHandler = Handler(Looper.getMainLooper())
@@ -71,10 +71,11 @@ class EnhancedSettingsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         languageManager = LanguageManager(requireContext())
-        sessionManager = SessionManager(requireContext())
-        securePreferences = SecurePreferences(requireContext())
+    sessionManager = SessionManager(requireContext())
+    securePrefsAdapterImpl = com.bearmod.loader.utils.SecurePrefsAdapterImpl(requireContext())
+    securePrefsAdapter = securePrefsAdapterImpl
         authViewModel = ViewModelProvider(requireActivity())[AuthViewModel::class.java]
-        keyAuthRepository = NetworkFactory.createKeyAuthRepository(requireContext())
+    authRepository = NetworkFactory.createKeyAuthRepository(requireContext())
     }
 
     override fun onCreateView(
@@ -151,7 +152,7 @@ class EnhancedSettingsFragment : Fragment() {
     private fun setupObservers() {
         try {
             // Observe authentication state changes from KeyAuthRepository
-            keyAuthRepository.authenticationState.asLiveData().observe(viewLifecycleOwner, Observer { authState ->
+            authRepository.authenticationState.asLiveData().observe(viewLifecycleOwner, Observer { authState ->
                 Log.d("EnhancedSettingsFragment", "Authentication state changed: $authState")
                 currentAuthState = authState
                 if (isAdded && !isDetached) {
@@ -177,9 +178,9 @@ class EnhancedSettingsFragment : Fragment() {
             }
 
             // Use current authentication state if available, otherwise fall back to stored data
-            val authState = currentAuthState ?: keyAuthRepository.getCurrentAuthState()
-            val licenseKey = authState.licenseKey ?: securePreferences.getBoundLicenseKey()
-            val sessionToken = authState.sessionToken ?: securePreferences.getSessionToken()
+            val authState = currentAuthState ?: authRepository.getCurrentAuthState()
+            val licenseKey = authState.licenseKey ?: securePrefsAdapter.getBoundLicenseKey()
+            val sessionToken = authState.sessionToken ?: securePrefsAdapter.getSessionToken()
 
             // Try to get expiry from subscription data first, then auth state, then stored data
             val tokenExpiry = authState.userInfo?.subscriptions?.firstOrNull()?.let { subscription ->
@@ -190,7 +191,7 @@ class EnhancedSettingsFragment : Fragment() {
                     Log.w("EnhancedSettingsFragment", "Failed to parse subscription expiry: ${subscription.expiry}", e)
                     null
                 }
-            } ?: authState.expiryTime.takeIf { it > 0 } ?: securePreferences.getTokenExpiryTime()
+            } ?: authState.expiryTime.takeIf { it > 0 } ?: securePrefsAdapter.getTokenExpiryTime()
 
             val isAuthenticated = authState.isAuthenticated && authState.isSessionValid()
 
@@ -446,9 +447,9 @@ class EnhancedSettingsFragment : Fragment() {
     private fun performLogout() {
         try {
             // Clear all user data
-            securePreferences.clearAll()
+            securePrefsAdapter.clearAll()
             sessionManager.clearSession()
-            keyAuthRepository.logout()
+            authRepository.logout()
 
             // Show logout success message
             showToast(if (languageManager.isChineseEnabled()) {

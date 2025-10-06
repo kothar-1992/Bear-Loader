@@ -162,22 +162,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardLicenseInput">
 
-        <!-- Remember Key Checkbox -->
-        <CheckBox
+        <!-- Remember Key (now a modern switch) -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/cbRememberKey"
-            style="@style/ModernCheckBox"
+            style="@style/ModernSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@string/remember_key" />
+            android:text="@string/remember_key"
+            android:contentDescription="@string/remember_key" />
 
-        <!-- Automatic Login Checkbox -->
-        <CheckBox
+        <!-- Automatic Login (now a modern switch) -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/cbAutoLogin"
-            style="@style/ModernCheckBox"
+            style="@style/ModernSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/automatic_login" />
+            android:text="@string/automatic_login"
+            android:contentDescription="@string/automatic_login" />
 
     </LinearLayout>
 
@@ -189,8 +191,9 @@
         android:layout_height="56dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="36dp"
-        android:text="@string/login_button"
-        android:textColor="@color/button_text"
+        android:text="LOGIN"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
         android:backgroundTint="@color/md3_primary"
         android:elevation="8dp"
         android:translationZ="8dp"

@@ -6,7 +6,8 @@ import org.robolectric.RobolectricTestRunner
 import com.bearmod.loader.data.api.KeyAuthApiService
 import com.bearmod.loader.data.model.KeyAuthResponse
 import com.bearmod.loader.security.HWIDProvider
-import com.bearmod.loader.utils.SecurePreferences
+import com.bearmod.loader.utils.SecurePrefsAdapter
+import com.bearmod.loader.utils.SecurePrefsAdapterImpl
 import com.bearmod.loader.utils.NetworkResult
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
@@ -24,13 +25,13 @@ class KeyAuthRepositoryHWIDTest {
 
     private lateinit var apiService: KeyAuthApiService
     private lateinit var hwidProvider: HWIDProvider
-    private lateinit var securePreferences: SecurePreferences
+    private lateinit var securePreferences: SecurePrefsAdapter
     private lateinit var repository: KeyAuthRepository
 
     @Before
     fun setup() {
         val context = ApplicationProvider.getApplicationContext<android.content.Context>()
-        securePreferences = SecurePreferences(context)
+    securePreferences = SecurePrefsAdapterImpl(context)
 
         apiService = mock()
         hwidProvider = mock()

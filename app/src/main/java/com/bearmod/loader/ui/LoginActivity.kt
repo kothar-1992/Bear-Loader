@@ -20,7 +20,7 @@ import com.bearmod.loader.ui.login.LoginViewModel
 import com.bearmod.loader.data.model.SessionRestoreResult
 import com.bearmod.loader.data.model.AuthFlowState
 import com.bearmod.loader.utils.NetworkResult
-import com.bearmod.loader.utils.SecurePreferences
+// SecurePreferences is intentionally only constructed when migration is required.
 import com.bearmod.loader.utils.PreferencesMigration
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -28,15 +28,17 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var securePreferences: com.bearmod.loader.utils.SecurePreferences
     private lateinit var sessionService: com.bearmod.loader.session.SessionService
     
     private val viewModel: LoginViewModel by viewModels {
         object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val repository = NetworkFactory.createKeyAuthRepository(this@LoginActivity)
-                return LoginViewModel(repository) as T
+                val repository: com.bearmod.loader.data.repository.AuthRepository = NetworkFactory.createKeyAuthRepository(this@LoginActivity)
+                // Create the SecurePrefsAdapter here so the ViewModel receives it
+                // without requiring Activities/Fragments to directly manipulate prefs.
+                val prefsAdapter = com.bearmod.loader.utils.SecurePrefsAdapterImpl(this@LoginActivity)
+                return LoginViewModel(repository, prefsAdapter) as T
             }
         }
     }
@@ -45,12 +47,23 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
-    securePreferences = com.bearmod.loader.utils.SecurePreferences(this)
-    sessionService = com.bearmod.loader.session.SessionService(securePreferences)
 
-        // Migrate preferences from old implementation if needed
-        PreferencesMigration.migrateIfNeeded(this, securePreferences)
+    // Create a single SecurePrefsAdapterImpl to be used by ViewModel and session handling
+    val prefsAdapter = com.bearmod.loader.utils.SecurePrefsAdapterImpl(this)
+
+    // Use the adapter as the SessionStore for SessionService so clearing semantics remain
+    sessionService = com.bearmod.loader.session.SessionService(prefsAdapter)
+
+    // Migrate preferences from old implementation if needed. PreferencesMigration expects
+    // a SecurePreferences instance; only create it if migration hasn't been completed yet.
+    val migrationPrefsStatus = getSharedPreferences("migration_status", Context.MODE_PRIVATE)
+    val migrationCompleted = migrationPrefsStatus.getBoolean("migration_v2_completed", false)
+    if (!migrationCompleted) {
+        // Create legacy SecurePreferences only when migration is required. This keeps the
+        // migration logic unchanged and avoids unnecessary keystore initializations on app startup.
+        val migrationPrefs = com.bearmod.loader.utils.SecurePreferences(this)
+        PreferencesMigration.migrateIfNeeded(this, migrationPrefs)
+    }
 
     // Clear any corrupted session data that might cause "Session not found" errors
     // Use SessionService to centralize the clearing sequence
@@ -82,8 +95,16 @@ class LoginActivity : AppCompatActivity() {
         // Enhanced initialization with session restoration
         Log.d("LoginActivity", "🚀 Starting enhanced KeyAuth initialization with session restoration")
 
-        // Check if we can attempt auto-login
-        if (viewModel.canAutoLogin() && securePreferences.getAutoLogin()) {
+        /**
+         * Initialization decision
+         *
+         * NOTE (refactor): This block reads auto-login preferences directly from
+         * `SecurePreferences`. We've introduced `SecurePrefsAdapter` to centralize
+         * preference access for ViewModels and future fragments. For now we keep the
+         * existing behavior but this will be migrated to use the adapter and the
+         * ViewModel-only access pattern in a follow-up change.
+         */
+        if (viewModel.canAutoLogin() && viewModel.isAutoLoginEnabledSync()) {
             Log.d("LoginActivity", "🔄 Auto-login available, attempting session restoration...")
             viewModel.initializeWithSessionRestore()
         } else {
@@ -210,23 +231,18 @@ class LoginActivity : AppCompatActivity() {
             pasteFromClipboard()
         }
         
-        // Remember key checkbox
+        /**
+         * Preference toggle handlers
+         *
+         * These now forward to the ViewModel which delegates to the SecurePrefsAdapter.
+         * This reduces duplication and keeps the Activity free of storage logic.
+         */
         binding.cbRememberKey.setOnCheckedChangeListener { _, isChecked ->
-            securePreferences.setRememberLicense(isChecked)
-            if (!isChecked) {
-                securePreferences.clearLicenseKey()
-                binding.cbAutoLogin.isChecked = false
-                securePreferences.setAutoLogin(false)
-            }
+            viewModel.setRememberLicense(isChecked)
         }
-        
-        // Auto login checkbox
+
         binding.cbAutoLogin.setOnCheckedChangeListener { _, isChecked ->
-            securePreferences.setAutoLogin(isChecked)
-            if (isChecked && !binding.cbRememberKey.isChecked) {
-                binding.cbRememberKey.isChecked = true
-                securePreferences.setRememberLicense(true)
-            }
+            viewModel.setAutoLogin(isChecked)
         }
     }
     
@@ -247,8 +263,8 @@ class LoginActivity : AppCompatActivity() {
                     binding.btnLogin.text = "LOGIN"
 
                     // Check if auto login is enabled and we have a saved key
-                    if (securePreferences.getAutoLogin()) {
-                        val savedKey = securePreferences.getLicenseKey()
+                    if (viewModel.isAutoLoginEnabledSync()) {
+                        val savedKey = viewModel.getSavedLicenseSync()
                         if (!savedKey.isNullOrEmpty()) {
                             binding.etLicenseKey.setText(savedKey)
                             showStatus("🔄 Auto-login with saved key...")
@@ -284,10 +300,8 @@ class LoginActivity : AppCompatActivity() {
                 is NetworkResult.Success -> {
                     showStatus("✅ Authentication successful!")
 
-                    // Save license key if remember is checked
-                    if (binding.cbRememberKey.isChecked) {
-                        securePreferences.saveLicenseKey(binding.etLicenseKey.text.toString().trim())
-                    }
+                    // Save license key via ViewModel (which writes only if remember is enabled)
+                    viewModel.saveLicenseKeyIfNeeded(binding.etLicenseKey.text.toString().trim())
 
                     // Navigate to main activity
                     navigateToMainActivity()
@@ -337,15 +351,12 @@ class LoginActivity : AppCompatActivity() {
                 is SessionRestoreResult.SessionExpired -> {
                     showStatus("⏰ Session expired, please login again")
                     // Clear auto-login if session expired
-                    binding.cbAutoLogin.isChecked = false
-                    securePreferences.setAutoLogin(false)
+                    viewModel.setAutoLogin(false)
                 }
                 is SessionRestoreResult.HWIDMismatch -> {
                     showError("⚠️ Device changed detected. Please re-authenticate.")
                     // Clear stored data for security
-                    securePreferences.clearAuthenticationData()
-                    binding.cbAutoLogin.isChecked = false
-                    securePreferences.setAutoLogin(false)
+                    viewModel.clearAuthenticationData()
                 }
                 is SessionRestoreResult.Failed -> {
                     showError("❌ Session restoration failed: ${result.error}")
@@ -431,15 +442,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loadSavedPreferences() {
-        // Load saved preferences
-        binding.cbRememberKey.isChecked = securePreferences.getRememberLicense()
-        binding.cbAutoLogin.isChecked = securePreferences.getAutoLogin()
-        
-        // Load saved license key if remember is enabled
-        if (securePreferences.getRememberLicense()) {
-            val savedKey = securePreferences.getLicenseKey()
-            if (!savedKey.isNullOrEmpty()) {
-                binding.etLicenseKey.setText(savedKey)
+        // Load saved preferences via ViewModel adapter helpers
+        viewModel.loadPreferences()
+
+        // Observe the small set of preference LiveData to populate UI
+        viewModel.rememberLicense.observe(this) { rem ->
+            binding.cbRememberKey.isChecked = rem
+        }
+
+        viewModel.autoLogin.observe(this) { auto ->
+            binding.cbAutoLogin.isChecked = auto
+        }
+
+        viewModel.savedLicenseKey.observe(this) { key ->
+            if (!key.isNullOrEmpty()) {
+                binding.etLicenseKey.setText(key)
             }
         }
     }

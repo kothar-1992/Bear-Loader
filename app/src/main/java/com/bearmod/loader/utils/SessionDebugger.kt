@@ -2,7 +2,7 @@ package com.bearmod.loader.utils
 
 import android.content.Context
 import android.util.Log
-import com.bearmod.loader.utils.SecurePreferences
+// SessionDebugger uses SecurePrefsAdapterImpl for storage access
 
 /**
  * Session debugging utility to help diagnose authentication issues
@@ -16,7 +16,7 @@ object SessionDebugger {
      */
     fun logSessionState(context: Context, prefix: String = "") {
         try {
-            val securePreferences = SecurePreferences(context)
+            val securePreferences = com.bearmod.loader.utils.SecurePrefsAdapterImpl(context)
             
             Log.d(TAG, "==================== SESSION DEBUG $prefix ====================")
             
@@ -129,7 +129,7 @@ object SessionDebugger {
         val issues = mutableListOf<String>()
         
         try {
-            val securePreferences = SecurePreferences(context)
+            val securePreferences = com.bearmod.loader.utils.SecurePrefsAdapterImpl(context)
             
             // Check for missing session token
             if (securePreferences.getSessionToken().isNullOrEmpty()) {

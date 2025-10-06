@@ -4,32 +4,32 @@ import android.content.Context;
 
 public class SessionManager {
     
-    private final SecurePreferences securePreferences;
+    private final com.bearmod.loader.utils.SecurePrefsAdapterImpl securePreferences;
     
     public SessionManager(Context context) {
-        securePreferences = new SecurePreferences(context);
+    securePreferences = new com.bearmod.loader.utils.SecurePrefsAdapterImpl(context);
     }
     
     public void clearSession() {
-        securePreferences.clearAll();
+    securePreferences.clearAll();
     }
 
     /**
      * Clear only the stored session token and refresh token (preserves other prefs)
      */
     public void clearSessionToken() {
-        securePreferences.clearSessionToken();
-        securePreferences.clearRefreshToken();
+    securePreferences.clearSessionToken();
+    securePreferences.clearRefreshToken();
     }
 
     /**
      * Clear only authentication-related data (keeps user preferences)
      */
     public void clearAuthenticationData() {
-        securePreferences.clearAuthenticationData();
+    securePreferences.clearAuthenticationData();
     }
     
     public boolean isLoggedIn() {
-        return securePreferences.getLicenseKey() != null && !securePreferences.getLicenseKey().isEmpty();
+    return securePreferences.getLicenseKey() != null && !securePreferences.getLicenseKey().isEmpty();
     }
 }

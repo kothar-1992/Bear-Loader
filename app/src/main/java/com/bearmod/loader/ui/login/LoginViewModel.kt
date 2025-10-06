@@ -9,7 +9,8 @@ import com.bearmod.loader.KeyAuthLoaderApplication
 import com.bearmod.loader.data.model.KeyAuthResponse
 import com.bearmod.loader.data.model.SessionRestoreResult
 import com.bearmod.loader.data.model.AuthFlowState
-import com.bearmod.loader.data.repository.KeyAuthRepository
+import com.bearmod.loader.data.repository.AuthRepository
+import com.bearmod.loader.utils.SecurePrefsAdapter
 import com.bearmod.loader.utils.NetworkResult
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +18,10 @@ import kotlinx.coroutines.flow.StateFlow
 /**
  * ViewModel for the login screen
  */
-class LoginViewModel(private val repository: KeyAuthRepository) : ViewModel() {
+class LoginViewModel(
+    private val repository: AuthRepository,
+    private val prefsAdapter: SecurePrefsAdapter
+) : ViewModel() {
     
     private val _loginState = MutableLiveData<NetworkResult<KeyAuthResponse>?>()
     val loginState: LiveData<NetworkResult<KeyAuthResponse>?> = _loginState
@@ -30,6 +34,16 @@ class LoginViewModel(private val repository: KeyAuthRepository) : ViewModel() {
 
     private val _sessionRestoreState = MutableLiveData<SessionRestoreResult?>()
     val sessionRestoreState: LiveData<SessionRestoreResult?> = _sessionRestoreState
+
+    // Preference-backed UI state exposed to the Activity
+    private val _rememberLicense = MutableLiveData<Boolean>()
+    val rememberLicense: LiveData<Boolean> = _rememberLicense
+
+    private val _autoLogin = MutableLiveData<Boolean>()
+    val autoLogin: LiveData<Boolean> = _autoLogin
+
+    private val _savedLicenseKey = MutableLiveData<String?>()
+    val savedLicenseKey: LiveData<String?> = _savedLicenseKey
 
     // Expose auth flow state from repository
     val authFlowState: StateFlow<AuthFlowState> = repository.authFlowState
@@ -156,6 +170,61 @@ class LoginViewModel(private val repository: KeyAuthRepository) : ViewModel() {
         return repository.isAppInitialized()
     }
 
+    // ==================== Preference helpers ====================
+
+    /**
+     * Load preference values from the adapter and publish to LiveData for the UI.
+     * This is synchronous and safe to call from the Activity during onCreate.
+     */
+    fun loadPreferences() {
+        _rememberLicense.value = prefsAdapter.getRememberLicense()
+        _autoLogin.value = prefsAdapter.getAutoLogin()
+        _savedLicenseKey.value = prefsAdapter.getLicenseKey()
+    }
+
+    fun setRememberLicense(value: Boolean) {
+        prefsAdapter.setRememberLicense(value)
+        _rememberLicense.value = value
+        if (!value) {
+            prefsAdapter.clearLicenseKey()
+            _savedLicenseKey.value = null
+            // also clear auto-login when remember is disabled
+            prefsAdapter.setAutoLogin(false)
+            _autoLogin.value = false
+        }
+    }
+
+    fun setAutoLogin(value: Boolean) {
+        prefsAdapter.setAutoLogin(value)
+        _autoLogin.value = value
+        if (value && !prefsAdapter.getRememberLicense()) {
+            // enabling auto-login should also enable remember license
+            prefsAdapter.setRememberLicense(true)
+            _rememberLicense.value = true
+        }
+    }
+
+    fun saveLicenseKeyIfNeeded(key: String) {
+        if (prefsAdapter.getRememberLicense()) {
+            prefsAdapter.saveLicenseKey(key)
+            _savedLicenseKey.value = key
+        }
+    }
+
+    fun clearAuthenticationData() {
+        prefsAdapter.clearAuthenticationData()
+        _autoLogin.value = false
+        _rememberLicense.value = false
+        _savedLicenseKey.value = null
+    }
+
+    /**
+     * Synchronous getters useful during Activity initialization decisions.
+     */
+    fun isAutoLoginEnabledSync(): Boolean = prefsAdapter.getAutoLogin()
+    fun getSavedLicenseSync(): String? = prefsAdapter.getLicenseKey()
+    fun getRememberLicenseSync(): Boolean = prefsAdapter.getRememberLicense()
+
     // ==================== ENHANCED SESSION MANAGEMENT ====================
 
     /**
@@ -206,7 +275,10 @@ class LoginViewModel(private val repository: KeyAuthRepository) : ViewModel() {
      * Check if auto-login is possible
      */
     fun canAutoLogin(): Boolean {
-        return repository.canAutoLogin()
+        // Combine repository capability and user's stored preference to decide
+        // whether auto-login should be attempted. This centralizes pref access
+        // in the ViewModel and removes the need for Activities to read prefs.
+        return repository.canAutoLogin() && prefsAdapter.getAutoLogin()
     }
 
     /**

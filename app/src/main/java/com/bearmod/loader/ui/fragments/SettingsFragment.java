@@ -18,7 +18,6 @@ import com.bearmod.loader.R;
 import com.bearmod.loader.ui.LoginActivity;
 import com.bearmod.loader.ui.MainActivity;
 import com.bearmod.loader.utils.LanguageManager;
-import com.bearmod.loader.utils.SecurePreferences;
 import com.bearmod.loader.utils.SessionManager;
 import com.bearmod.loader.viewmodel.AuthViewModel;
 
@@ -33,15 +32,18 @@ public class SettingsFragment extends Fragment {
 
     private LanguageManager languageManager;
     private SessionManager sessionManager;
-    private SecurePreferences securePreferences;
+    private com.bearmod.loader.utils.SecurePrefsAdapter securePrefsAdapter;
+    private com.bearmod.loader.utils.SecurePrefsAdapterImpl securePrefsAdapterImpl;
     private AuthViewModel authViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         languageManager = new LanguageManager(requireContext());
-        sessionManager = new SessionManager(requireContext());
-        securePreferences = new SecurePreferences(requireContext());
+    sessionManager = new SessionManager(requireContext());
+    // Use adapter to access secure preferences in UI code
+    securePrefsAdapterImpl = new com.bearmod.loader.utils.SecurePrefsAdapterImpl(requireContext());
+    securePrefsAdapter = securePrefsAdapterImpl;
         authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
     }
 
@@ -148,14 +150,14 @@ public class SettingsFragment extends Fragment {
 
 
     private void updateLicenseInformation() {
-        // Try to get license key from multiple sources for better reliability
-        String licenseKey = securePreferences.getLicenseKey();
+        // Try to get license key from adapter for better reliability
+        String licenseKey = securePrefsAdapter.getLicenseKey();
         if (licenseKey == null || licenseKey.isEmpty()) {
-            licenseKey = securePreferences.getBoundLicenseKey();
+            licenseKey = securePrefsAdapter.getBoundLicenseKey();
         }
 
-        String sessionToken = securePreferences.getSessionToken();
-        long tokenExpiry = securePreferences.getTokenExpiryTime();
+        String sessionToken = securePrefsAdapter.getSessionToken();
+        long tokenExpiry = securePrefsAdapter.getTokenExpiryTime();
 
         android.util.Log.d("SettingsFragment", "License info update - Key: " +
             (licenseKey == null || licenseKey.isEmpty() ? "null/empty" : "available") +
@@ -183,7 +185,7 @@ public class SettingsFragment extends Fragment {
         }
 
         // Update expiry information based on actual token data
-        boolean isValid = sessionToken != null && !sessionToken.isEmpty() && securePreferences.isSessionTokenValid();
+    boolean isValid = sessionToken != null && !sessionToken.isEmpty() && securePrefsAdapterImpl.isSessionTokenValid();
 
         if (tvLicenseExpiry != null) {
             if (tokenExpiry > 0) {
