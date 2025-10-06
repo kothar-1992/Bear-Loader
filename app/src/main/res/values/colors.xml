@@ -32,10 +32,10 @@
     <color name="input_stroke">#FF37474F</color>
     <color name="input_stroke_focused">#FF4FC3F7</color>
 
-    <!-- Button colors -->
-    <color name="button_background">#FF0ABDE6</color>
-    <color name="button_background_pressed">#FF0A95C0</color>
-    <color name="button_text">#FF031019</color>
+    <!-- Button colors (dark premium) -->
+    <color name="button_background">#FF0B1220</color>
+    <color name="button_background_pressed">#FF0F3450</color>
+    <color name="button_text">#FFFFFFFF</color>
 
     <!-- Checkbox colors -->
     <color name="checkbox_unchecked">#FF78909C</color>
@@ -85,10 +85,10 @@
     <color name="shadow_dark">#66000000</color>
     <color name="highlight">#44FFFFFF</color>
 
-    <!-- Gradient Colors for Modern Effects -->
-    <color name="gradient_start">#FFE53935</color>
-    <color name="gradient_center">#FFFF5722</color>
-    <color name="gradient_end">#FFFFC107</color>
+    <!-- Gradient Colors for Modern Dark Effects (premium) -->
+    <color name="gradient_start">#FF071827</color>
+    <color name="gradient_center">#FF0E2434</color>
+    <color name="gradient_end">#FF122A3F</color>
 
     <!-- Card and Elevation Colors -->
     <color name="card_background">#FF112233</color>

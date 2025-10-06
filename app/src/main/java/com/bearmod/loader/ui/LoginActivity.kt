@@ -99,12 +99,16 @@ class LoginActivity : AppCompatActivity() {
                 // Return false so click still propagates
                 false
             }
-            // Start logo shimmer animation if available
+            // Start logo shimmer animation if available. Use dynamic id lookup so compilation
+            // doesn't fail if the resource was removed (some builds use a raster logo only).
             try {
-                val shimmerView = binding.root.findViewById<android.widget.ImageView>(R.id.ivLogoShimmer)
-                val drawable = shimmerView?.drawable
-                if (drawable is android.graphics.drawable.AnimatedVectorDrawable) {
-                    drawable.start()
+                val shimmerResId = resources.getIdentifier("ivLogoShimmer", "id", packageName)
+                if (shimmerResId != 0) {
+                    val shimmerView = binding.root.findViewById<android.widget.ImageView>(shimmerResId)
+                    val drawable = shimmerView?.drawable
+                    if (drawable is android.graphics.drawable.AnimatedVectorDrawable) {
+                        drawable.start()
+                    }
                 }
             } catch (e: Exception) {
                 // ignore
