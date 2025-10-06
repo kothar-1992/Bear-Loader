@@ -65,6 +65,20 @@ class LoginActivity : AppCompatActivity() {
     // Setup parallax and theme toggle
     setupParallaxAndThemeToggle()
 
+    // Apply subtle backdrop blur for a glassmorphism effect on supported devices (Android 12L+ / API 31+)
+    try {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            val parallaxView = findViewById<View>(R.id.parallaxContainer)
+            // 8f blur radius for subtle frosted effect
+            val radius = 8f
+            val renderEffect = android.graphics.RenderEffect.createBlurEffect(radius, radius, android.graphics.Shader.TileMode.CLAMP)
+            parallaxView.setRenderEffect(renderEffect)
+        }
+    } catch (e: Exception) {
+        // RenderEffect may fail on some OEM devices - fallback is the semi-translucent card drawable
+        Log.d("LoginActivity", "RenderEffect not applied: ${e.message}")
+    }
+
         // Enhanced initialization with session restoration
         Log.d("LoginActivity", "🚀 Starting enhanced KeyAuth initialization with session restoration")
 
