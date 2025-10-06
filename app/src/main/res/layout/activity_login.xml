@@ -11,9 +11,9 @@
     <!-- Enhanced Bear Logo Container with 3D Effects -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="16dp"
         android:animateLayoutChanges="true"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="100dp"
@@ -25,11 +25,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Golden Border Ring -->
+        <!-- Subtle ring behind logo (no color rework) -->
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/logo_background"
-            android:layout_margin="6dp" />
+            android:layout_margin="6dp"
+            android:background="@drawable/logo_ring_subtle" />
 
         <!-- Bear Logo Image and subtle shimmer animation -->
         <FrameLayout
@@ -40,14 +41,14 @@
             <ImageView
                 android:id="@+id/ivBearLogo"
                 android:transitionName="bear_logo_transition"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/bear_logo_description"
                 android:src="@drawable/bear_icon"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
-                android:padding="10dp" />
+                android:padding="6dp" />
 
         </FrameLayout>
 

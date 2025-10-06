@@ -181,6 +181,9 @@ class LoginActivity : AppCompatActivity() {
 
         // Login button click
         binding.btnLogin.setOnClickListener {
+            // Provide haptic feedback for better touch affordance
+            it.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP)
+            binding.btnLogin.text = getString(R.string.login_button)
             val licenseKey = binding.etLicenseKey.text.toString().trim()
 
 
