@@ -70,7 +70,7 @@
 
     <!-- Modern Background Colors -->
     <!-- Very dark background and layered surfaces for premium look -->
-    <color name="md3_background">#FF04060A</color>
+    <color name="md3_background">#FF06122B</color>
     <color name="md3_on_background">#FFFFFFFF</color>
     <!-- Surface layers: slightly lighter than background to provide separation -->
     <color name="md3_surface">#FF0B1720</color>
@@ -92,9 +92,9 @@
     <color name="gradient_end">#FF13313F</color>
 
     <!-- Card and Elevation Colors (lighter than background for clear separation) -->
-    <color name="card_background">#FF0F2533</color>
-    <color name="card_elevated">#FF173444</color>
-    <color name="card_stroke">#33243B48</color>
+    <color name="card_background">#FF18303E</color>
+    <color name="card_elevated">#FF203C4A</color>
+    <color name="card_stroke">#55FFFFFF</color>
 
     <!-- Launcher Icon Background -->
     <color name="ic_launcher_background">#FF000000</color>
