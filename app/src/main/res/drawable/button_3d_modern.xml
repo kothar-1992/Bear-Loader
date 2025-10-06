@@ -45,11 +45,7 @@
             <!-- Main button layer (normal) -->
             <item android:bottom="4dp" android:right="4dp">
                 <shape android:shape="rectangle">
-                    <gradient
-                        android:angle="135"
-                        android:startColor="@color/gradient_start"
-                        android:endColor="@color/gradient_end"
-                        android:type="linear" />
+                    <solid android:color="@color/button_background" />
                     <corners android:radius="28dp" />
                 </shape>
             </item>
