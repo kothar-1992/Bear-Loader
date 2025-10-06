@@ -117,12 +117,14 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Simple single-layer input: disable TextInputLayout boxed background to avoid nested boxes -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilLicenseKey"
                 style="@style/ModernTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/license_key_hint"
+                app:boxBackgroundMode="none"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_paste_3d"
                 app:endIconTint="@color/md3_primary"
@@ -132,12 +134,14 @@
                     android:id="@+id/etLicenseKey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:fontFamily="monospace"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
                     android:textColor="@color/text_primary"
                     android:textColorHint="@color/text_hint"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:padding="8dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,10 +188,10 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:text="@string/login_button"
         android:textColor="@color/button_text"
-        android:backgroundTint="@color/button_background"
+        android:backgroundTint="@color/md3_primary"
         android:elevation="8dp"
         android:translationZ="8dp"
         android:stateListAnimator="@animator/button_elevation_anim"
